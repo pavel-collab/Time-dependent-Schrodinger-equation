@@ -61,3 +61,8 @@ class WaveFunction:
     def PsiTimeEvolute(self):
         U = self.__TimeEvolution()
         self.psi = U @ self.psi
+
+    @property # <- применяется для гетеров   
+    def Hamiltonian(self):
+        H = self.__Hamiltonian()
+        return H
