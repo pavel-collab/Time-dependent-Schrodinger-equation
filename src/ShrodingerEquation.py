@@ -48,7 +48,7 @@ class WaveFunction:
         return H.toarray()
 
     def __TimeEvolution(self, dt=1):
-        H = self.Hamiltonian()
+        H = self.__Hamiltonian()
 
         U = expm(-1j*H*dt)
         # задаем точность -- отрубаем слишком малые элементы матрицы
