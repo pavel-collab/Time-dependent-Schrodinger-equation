@@ -43,7 +43,8 @@ ln1, = plt.plot([], [])
 ln2, = plt.plot([], [])
 
 # number of frames per second
-frm_p_sec = 10
+fps = 10
+total_frames_n = 400
 
 # define the animation function
 # this function describe how we will change our frame
@@ -65,11 +66,12 @@ def animate(i):
 
 def main():
     start_time = datetime.now()
+    date = datetime.strftime(datetime.now(), "%d.%m.%Y-%H.%M.%S")
     try:
-        ani = animation.FuncAnimation(fig, animate, frames=240, interval=frm_p_sec)
+        ani = animation.FuncAnimation(fig, animate, frames=total_frames_n, interval=fps)
         # here we can save the animation like a video
-        f = r"../video/harmonic_oscillator.mp4" 
-        writervideo = animation.FFMpegWriter(fps=60) 
+        f = r"../video/harmonic_oscillator_" + date + r"_.mp4"  
+        writervideo = animation.FFMpegWriter(fps=fps) 
         ani.save(f, writer=writervideo)
 
         exec_time = datetime.now() - start_time
