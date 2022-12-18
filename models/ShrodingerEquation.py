@@ -70,8 +70,8 @@ class WaveFunction:
 
     def GetAvrgCordinate(self):
         # значение для интегрирования
-        intgr_val = self.psiconjugate() * self.__x * self.psi
-        intgr_val = np.sqrt(intgr_val.real**2 + intgr_val.imag**2)
+        intgr_val = self.psi.conjugate() * self.__x * self.psi
+        intgr_val = intgr_val.real
 
         average_x = integrate.simps(intgr_val, self.__x)
         return average_x
