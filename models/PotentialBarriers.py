@@ -31,3 +31,20 @@ def BoxPotential(x, x0, d, V0):
         return V0
     else:
         return 0
+
+def RampPotential(x, k):
+    return k*x
+
+def StepPotential(x, x0, V1, V2):
+    if x <= x0:
+        return V1
+    else: 
+        return V2
+
+def TwoLevelBoxPotential(x, x0, d, V0, V1, V2):
+    if x <= x0 - d/2:
+        return V0
+    elif (x > x0 - d/2 and x < x0 + d/2):
+        return V1
+    else:
+        return V2

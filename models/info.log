@@ -134,3 +134,64 @@ WavePackage.py exec time:
 Program was terminated or there was some error:
 0:00:08.748624
 
+WavePackage.py exec time:
+0:25:34.838369
+
+RampPotential.py exec time:
+0:10:20.389030
+
+RampPotential.py exec time:
+Program was terminated or there was some error:
+0:00:13.073415
+
+StepPotential.py exec time:
+Program was terminated or there was some error:
+0:00:10.144837
+
+StepPotential.py exec time:
+Program was terminated or there was some error:
+0:00:13.876480
+
+--------------------------------------------------
+19.12.2022-00.58.03
+--------------------------------------------------
+RampPotential.py exec time:
+Program was terminated or there was some error:
+0:00:30.742561
+
+--------------------------------------------------
+19.12.2022-00.59.06
+--------------------------------------------------
+RampPotential.py exec time:
+0:09:42.340325
+
+StepPotential.py exec time:
+0:08:26.014123
+
+TwoLevelBoxPotential.py exec time:
+0:08:32.975809
+
+--------------------------------------------------
+19.12.2022-01.38.43
+--------------------------------------------------
+RampPotential.py exec time:
+0:09:43.592133
+
+StepPotential.py exec time:
+0:08:28.402483
+
+TwoLevelBoxPotential.py exec time:
+0:08:32.922641
+
+--------------------------------------------------
+19.12.2022-02.08.55
+--------------------------------------------------
+RampPotential.py exec time:
+0:09:36.149999
+
+StepPotential.py exec time:
+0:08:26.995954
+
+TwoLevelBoxPotential.py exec time:
+0:10:18.506514
+

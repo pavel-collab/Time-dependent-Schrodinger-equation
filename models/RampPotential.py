@@ -6,30 +6,42 @@ from datetime import datetime
 
 import ShrodingerEquation, PotentialBarriers
 
+#! Проблема с этой моделью примерно та же самая, что и с осциляторной
+'''
+На низких значениях коэффициента наклона (точно так же как на пологой параболе)
+эффект просто напросто не заметен. Расплывание волнового пакета тупо более заметно, поэтому
+на фоне размытия волнового пакета эффекты связанные с осциляцией и с Ramp Potential
+не заметны. А если я ставлю высокие коэффициенты в потенциальных барьерах, то на одном рисунке с 
+волновым пакетом их просто не видно и картинка становится неинформативной.
+
+Пока что единственное решение -- нормировка потенциальных барьеров или волнового пакета так, 
+чтобы они были одного размера.
+'''
+
 # зададим количество точек на пространственной сетке
 N = 1000
 # зададим сетку пространственного диапазона
-x_start = -120
-x_end = 120
+x_start = 0
+x_end = 300
 
 x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 # зададим параметры волнового пакета
 # начальное положение
-x0 = -100
+x0 = 30
 # ширина
 sigma0 = 5.0
 # начальная энергия и импульс (считаем что m = 1)
-E0 = 0.5
+E0 = 0.6
 p0 = math.sqrt(2*E0)
 
+# Потенциальный барьер
+k = 1/300
+V_dense = np.array([PotentialBarriers.RampPotential(x, k) for x in x_dense])
+
+# зададим новую волновую функцию
 # зададим начальный вид волновой функции, как гаусовский полновой пакет
 psi0 = ShrodingerEquation.GaussWavePackage(x_dense, x0, sigma0, p0)
-
-# зададим потенциальный барьер
-V_dense = np.zeros(N)
-
-# волновая функция (заданная как объект)
 psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
@@ -40,15 +52,21 @@ ax.set_ylim(0.0, 0.12)
 
 # next we need to create and initial empty frame
 ln1, = plt.plot([], [])
-# initial (empty) text box
-ax.text(0.5, 1, '',
-           size = 8,
-           bbox=dict(facecolor='white', edgecolor='black', pad=10.0))
+ln2, = plt.plot([], [])
 
+'''
+Notes:
+Я все еще не вполне понял, как количество фрэймов и количество фрэймов в единицу времени связаны 
+со скоростью воспроизведения, потому что результаты изменения параметров крайне нелогичные.
+Когда я увеличил количество отрисовываемых фрэймов, скорость пакета уменьшилась, как и надо (кажется)
+
+Нужно еще поэксперементировать с этим.
+В крайнем случае сделаю видео со скоростью 0.5-0.25 от оригинальной
+'''
 
 # number of frames per second
-fps = 10
-total_frames_n = 400
+fps = 20
+total_frames_n = 300
 
 # define the animation function
 # this function describe how we will change our frame
@@ -66,13 +84,7 @@ def animate(i):
     psi.PsiTimeEvolute()
     # update information about 1st plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability())
-
-    avrg_cordinate = psi.GetAvrgCordinate()
-    avrg_momentum = psi.GetAvrgMomentum()
-    #update information in text box
-    ax.text(x0, 0.12, r'$\langle x \rangle =$ %0.2lf\n$\langle p \rangle =$ %0.2lf' %(avrg_cordinate, avrg_momentum),
-           size = 8,
-           bbox=dict(facecolor='white', edgecolor='black', pad=10.0))
+    ln2.set_data(x_dense, V_dense)
 
 def main():
     start_time = datetime.now()
@@ -80,19 +92,19 @@ def main():
     try:
         ani = animation.FuncAnimation(fig, animate, frames=total_frames_n, interval=fps)
         # here we can save the animation like a video
-        f = r"../video/wave_package_" + date + r"_.mp4" 
+        f = r"../video/ramp_potential_" + date + r"_.mp4" 
         writervideo = animation.FFMpegWriter(fps=fps) 
         ani.save(f, writer=writervideo)
 
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('WavePackage.py exec time:\n')
+        log_file.write('RampPotential.py exec time:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
     except:
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('WavePackage.py exec time:\n')
+        log_file.write('RampPotential.py exec time:\n')
         log_file.write('Program was terminated or there was some error:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
