@@ -40,6 +40,11 @@ ax.set_ylim(0.0, 0.12)
 
 # next we need to create and initial empty frame
 ln1, = plt.plot([], [])
+# initial (empty) text box
+ax.text(0.5, 1, '',
+           size = 8,
+           bbox=dict(facecolor='white', edgecolor='black', pad=10.0))
+
 
 # number of frames per second
 fps = 10
@@ -61,6 +66,13 @@ def animate(i):
     psi.PsiTimeEvolute()
     # update information about 1st plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability())
+
+    # avrg_cordinate = psi.GetAvrgCordinate()
+    # avrg_momentum = psi.GetAvrgMomentum()
+    # update information in text box
+    # ax.text(x0, 0.12, r'$\langle x \rangle =$ %0.2lf\n$\langle p \rangle =$ %0.2lf' %(avrg_cordinate, avrg_momentum),
+    #        size = 8,
+    #        bbox=dict(facecolor='white', edgecolor='black', pad=10.0))
 
 def main():
     start_time = datetime.now()

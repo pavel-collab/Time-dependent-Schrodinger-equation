@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import math
 from scipy.sparse import diags, spdiags
 from scipy.linalg import expm
+from scipy import integrate
 
 #TODO: переписать уравнение Шредингера через классы, основные функции реализовать в качетве методов класса
 #TODO: написать комментарии к функциям и методам там, где это необходимо
@@ -66,3 +67,26 @@ class WaveFunction:
     def Hamiltonian(self):
         H = self.__Hamiltonian()
         return H
+
+    def GetAvrgCordinate(self):
+        # значение для интегрирования
+        intgr_val = self.psiconjugate() * self.__x * self.psi
+        intgr_val = np.sqrt(intgr_val.real**2 + intgr_val.imag**2)
+
+        average_x = integrate.simps(intgr_val, self.__x)
+        return average_x
+
+    def GetAvrgMomentum(self):
+        # здесь учитывается, что h = 1
+        momentum_operator2psi_funtion = -1j * (np.diff(self.psi, 1) / self.__dx)
+        # значение для интегрирования
+        # поскольку используемая функци np.diff возвращает массив
+        # меньший на 1 длинны от исходного, то и умножать его следует
+        # на массив соответствующей длинны
+        # на конечный результат вычислений это особо не повлияет, поскольку нам все равно
+        # в конечном итоге нужно число
+        intgr_val = self.psi.conjugate()[:-1] * momentum_operator2psi_funtion
+        intgr_val = np.sqrt(intgr_val.real**2 + intgr_val.imag**2)
+
+        average_momentum = integrate.simps(intgr_val, self.__x[:-1])
+        return average_momentum
