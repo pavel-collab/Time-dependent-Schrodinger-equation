@@ -16,7 +16,7 @@ x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 # зададим параметры волнового пакета
 # начальное положение
-x0 = -100
+x0 = 0
 # ширина
 sigma0 = 5.0
 # начальная энергия и импульс (считаем что m = 1)
@@ -25,7 +25,7 @@ p0 = math.sqrt(2*E0)
 
 # Потенциальный барьер
 V_x0 = 70
-V0 = 0.55
+V0 = -1
 a = 30
 V_dense = np.array([PotentialBarriers.BoxBarier(x, V_x0, a, V0) for x in x_dense])
 
@@ -37,12 +37,13 @@ psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # don't forget to set an axis limits
 ax.set_xlim(x_start, x_end)
-ax.set_ylim(0.0, 0.12)
+ax.set_ylim(-0.05, 0.12)
 
 
 # next we need to create and initial empty frame
 ln1, = plt.plot([], [])
 ln2, = plt.plot([], [])
+# ln3, = plt.plot([], [])
 
 '''
 Notes:
@@ -75,6 +76,7 @@ def animate(i):
     # update information about 1st plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability())
     ln2.set_data(x_dense, V_dense)
+    # ln3.set_data(x_dense, psi.psi.real)
 
 def main():
     start_time = datetime.now()
@@ -82,22 +84,26 @@ def main():
     try:
         ani = animation.FuncAnimation(fig, animate, frames=total_frames_n, interval=fps)
         # here we can save the animation like a video
-        f = r"../video/quantum_tunnelling_" + date + r"_.mp4" 
+        f = r"../video/box_pit_" + date + r"_.mp4" 
         writervideo = animation.FFMpegWriter(fps=fps) 
         ani.save(f, writer=writervideo)
 
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('QuantumTunnelling.py exec time:\n')
+        log_file.write('BoxPit.py exec time:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
     except:
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('QuantumTunnelling.py exec time:\n')
+        log_file.write('BoxPit.py exec time:\n')
         log_file.write('Program was terminated or there was some error:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
 
+'''
+Прямоугольная потенциальная яма -- оптический аналог оптически более плотной среды
+То есть после ее прохождения мы должны видеть 2 волны -- которая прошла и которая отразилась
+'''
 if __name__ == '__main__':
     main()

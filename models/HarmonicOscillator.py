@@ -9,23 +9,23 @@ import ShrodingerEquation, PotentialBarriers
 # зададим количество точек на пространственной сетке
 N = 1000
 # зададим сетку пространственного диапазона
-x_start = -60
-x_end = 60
+x_start = -64
+x_end = 64
 
 x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 # зададим параметры волнового пакета
 # начальное положение
-x0 = 0
+x0 = -32
 # ширина
-sigma0 = 5.0
+sigma0 = 1
 # начальная энергия и импульс (считаем что m = 1)
-E0 = 0.5
+E0 = 0.0
 p0 = math.sqrt(2*E0)
 
 # Потерциальную параболическую потенциальную яму
 omega = 1/32
-V_dense = PotentialBarriers.ParabolaPotential(x_dense, omega)
+V_dense = np.array([PotentialBarriers.ParabolaPotential(x, omega) for x in x_dense]) 
 
 # зададим новую волновую функцию
 # зададим начальный вид волновой функции, как гаусовский полновой пакет
@@ -35,7 +35,7 @@ psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # don't forget to set an axis limits
 ax.set_xlim(x_start, x_end)
-ax.set_ylim(0.0, 0.12)
+ax.set_ylim(0.0, 0.5)
 
 
 # next we need to create and initial empty frame
@@ -43,8 +43,8 @@ ln1, = plt.plot([], [])
 ln2, = plt.plot([], [])
 
 # number of frames per second
-fps = 10
-total_frames_n = 400
+fps = 60
+total_frames_n = 500
 
 # define the animation function
 # this function describe how we will change our frame

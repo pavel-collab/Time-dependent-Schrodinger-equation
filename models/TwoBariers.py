@@ -16,7 +16,7 @@ x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 # зададим параметры волнового пакета
 # начальное положение
-x0 = -100
+x0 = 0
 # ширина
 sigma0 = 5.0
 # начальная энергия и импульс (считаем что m = 1)
@@ -24,10 +24,10 @@ E0 = 0.5
 p0 = math.sqrt(2*E0)
 
 # Потенциальный барьер
-V_x0 = 70
-V0 = 0.55
-a = 30
-V_dense = np.array([PotentialBarriers.BoxBarier(x, V_x0, a, V0) for x in x_dense])
+V_x0 = 0
+V0 = 2
+a = 120
+V_dense = np.array([PotentialBarriers.BoxPotential(x, V_x0, a, V0) for x in x_dense])
 
 # зададим новую волновую функцию
 # зададим начальный вид волновой функции, как гаусовский полновой пакет
@@ -82,19 +82,19 @@ def main():
     try:
         ani = animation.FuncAnimation(fig, animate, frames=total_frames_n, interval=fps)
         # here we can save the animation like a video
-        f = r"../video/quantum_tunnelling_" + date + r"_.mp4" 
+        f = r"../video/two_bariers_" + date + r"_.mp4" 
         writervideo = animation.FFMpegWriter(fps=fps) 
         ani.save(f, writer=writervideo)
 
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('QuantumTunnelling.py exec time:\n')
+        log_file.write('TwoBariers.py exec time:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
     except:
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('QuantumTunnelling.py exec time:\n')
+        log_file.write('TwoBariers.py exec time:\n')
         log_file.write('Program was terminated or there was some error:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
