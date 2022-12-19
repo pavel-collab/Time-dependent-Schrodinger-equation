@@ -121,7 +121,8 @@ V_1 &  0  & 0   & 0     & \dots & 0 & 0 \\
 0   & V_2 & 0   & 0     & \dots & 0 & 0 \\
 0   & 0   & V_3 & 0     & \dots & 0 & 0 \\
     &     &     & \dots &       &   &   \\
-0   & 0   & 0   & 0     & \dots & 0 & V_N \\\end{pmatrix}
+0   & 0   & 0   & 0     & \dots & 0 & V_N\\
+\end{pmatrix}
 $$
 
 $$\langle f \rangle = \int \psi^* f \psi $$
