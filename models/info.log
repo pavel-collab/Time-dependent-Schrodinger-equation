@@ -220,3 +220,44 @@ RampPotential.py exec time:
 WavePackage.py exec time:
 0:28:25.329518
 
+RampPotential.py exec time:
+Program was terminated or there was some error:
+0:00:08.484094
+
+--------------------------------------------------
+19.12.2022-19.41.38
+--------------------------------------------------
+WavePackage.py exec time:
+0:36:04.373682
+
+BoxPit.py exec time:
+0:13:42.610965
+
+HarmonicOscillator.py exec time:
+0:30:16.276293
+
+QuantumTunnelling.py exec time:
+0:13:46.653879
+
+TwoBariers.py exec time:
+0:14:50.264576
+
+RampPotential.py exec time:
+0:22:19.260403
+
+StepPotential.py exec time:
+0:13:46.551124
+
+TwoLevelBoxPotential.py exec time:
+0:13:53.756375
+
+WavePackage.py exec time:
+Program was terminated or there was some error:
+0:00:01.873171
+
+WavePackage.py exec time:
+0:36:04.547332
+
+WavePackage.py exec time:
+0:37:19.740209
+

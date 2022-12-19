@@ -37,11 +37,12 @@ psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # don't forget to set an axis limits
 ax.set_xlim(x_start, x_end)
-ax.set_ylim(0.0, 0.12)
+ax.set_ylim(-0.05, 0.12)
 
 
 # next we need to create and initial empty frame
 ln1, = plt.plot([], [])
+ln2, = plt.plot([], [])
 # initial (empty) text box
 ax.text(0.5, 1, '',
            size = 8,
@@ -51,6 +52,8 @@ ax.text(0.5, 1, '',
 # number of frames per second
 fps = 10
 total_frames_n = 500
+
+psi_norm_factor = max(psi.WaveFunctioProbability()) / max(psi.psi.real)
 
 # define the animation function
 # this function describe how we will change our frame
@@ -68,6 +71,9 @@ def animate(i):
     psi.PsiTimeEvolute()
     # update information about 1st plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability())
+
+    psi_norm_factor = max(psi.WaveFunctioProbability()) / max(psi.psi.real)
+    ln2.set_data(x_dense, psi.psi.real * psi_norm_factor)
 
     # вычисляем среднюю координату и средний импульс
     avrg_cordinate = psi.GetAvrgCordinate()
