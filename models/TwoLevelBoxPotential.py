@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
 from datetime import datetime
 
-import ShrodingerEquation, PotentialBarriers
+from include import ShrodingerEquation, PotentialBarriers
 
 # зададим количество точек на пространственной сетке
 N = 1000
@@ -26,7 +27,7 @@ p0 = math.sqrt(2*E0)
 # Потенциальный барьер
 V_x0 = 70
 V0 = 0.01
-V1 = 0.5
+V1 = 0.55
 V2 = -0.005
 a = 5
 V_dense = np.array([PotentialBarriers.TwoLevelBoxPotential(x, V_x0, a, V0, V1, V2) for x in x_dense])
@@ -58,7 +59,7 @@ Notes:
 
 # number of frames per second
 fps = 20
-total_frames_n = 300
+total_frames_n = 500
 
 # define the animation function
 # this function describe how we will change our frame

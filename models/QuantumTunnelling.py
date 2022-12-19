@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
 from datetime import datetime
 
-import ShrodingerEquation, PotentialBarriers
+from include import ShrodingerEquation, PotentialBarriers
 
 # зададим количество точек на пространственной сетке
 N = 1000
@@ -56,7 +57,7 @@ Notes:
 
 # number of frames per second
 fps = 20
-total_frames_n = 300
+total_frames_n = 500
 
 # define the animation function
 # this function describe how we will change our frame

@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
 from datetime import datetime
 
-import ShrodingerEquation, PotentialBarriers
+from include import ShrodingerEquation, PotentialBarriers
 
 #! Проблема с этой моделью примерно та же самая, что и с осциляторной
 '''
@@ -28,15 +29,15 @@ x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 # зададим параметры волнового пакета
 # начальное положение
-x0 = 30
+x0 = 40
 # ширина
-sigma0 = 5.0
+sigma0 = 8.0
 # начальная энергия и импульс (считаем что m = 1)
-E0 = 0.6
+E0 = 1.0
 p0 = math.sqrt(2*E0)
 
 # Потенциальный барьер
-k = 1/100
+k = 1/150
 V_dense = np.array([PotentialBarriers.RampPotential(x, k) for x in x_dense])
 
 # зададим новую волновую функцию
@@ -66,10 +67,10 @@ Notes:
 
 # number of frames per second
 fps = 20
-total_frames_n = 300
+total_frames_n = 700
 
 #! сделаем нормировку графиков при отрисовке
-psi_norm_factor = np.mean(V_dense) / max(psi.WaveFunctioProbability())
+psi_norm_factor = np.max(V_dense) / max(psi.WaveFunctioProbability())
 
 # define the animation function
 # this function describe how we will change our frame

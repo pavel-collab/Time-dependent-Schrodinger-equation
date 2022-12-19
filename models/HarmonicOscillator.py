@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
 from datetime import datetime
 
-import ShrodingerEquation, PotentialBarriers
+from include import ShrodingerEquation, PotentialBarriers
 
 # зададим количество точек на пространственной сетке
 N = 1000
@@ -44,7 +45,10 @@ ln2, = plt.plot([], [])
 
 # number of frames per second
 fps = 60
-total_frames_n = 500
+total_frames_n = 700
+
+#! сделаем нормировку графиков при отрисовке
+psi_norm_factor = np.max(V_dense) / max(psi.WaveFunctioProbability())
 
 # define the animation function
 # this function describe how we will change our frame
@@ -61,7 +65,7 @@ def animate(i):
     I = i
     psi.PsiTimeEvolute()
     # update information about 1st plot
-    ln1.set_data(x_dense, psi.WaveFunctioProbability())
+    ln1.set_data(x_dense, psi.WaveFunctioProbability() * psi_norm_factor)
     ln2.set_data(x_dense, V_dense)
 
 def main():

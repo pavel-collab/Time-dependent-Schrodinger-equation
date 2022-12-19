@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
 from datetime import datetime
 
-import ShrodingerEquation, PotentialBarriers
+from include import ShrodingerEquation, PotentialBarriers
 
 # зададим количество точек на пространственной сетке
 N = 1000
@@ -24,6 +25,7 @@ E0 = 0.5
 p0 = math.sqrt(2*E0)
 
 # зададим начальный вид волновой функции, как гаусовский полновой пакет
+#! теперь это класс
 psi0 = ShrodingerEquation.GaussWavePackage(x_dense, x0, sigma0, p0)
 
 # зададим потенциальный барьер
@@ -48,7 +50,7 @@ ax.text(0.5, 1, '',
 
 # number of frames per second
 fps = 10
-total_frames_n = 400
+total_frames_n = 500
 
 # define the animation function
 # this function describe how we will change our frame
@@ -67,10 +69,18 @@ def animate(i):
     # update information about 1st plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability())
 
+    # вычисляем среднюю координату и средний импульс
     avrg_cordinate = psi.GetAvrgCordinate()
     avrg_momentum = psi.GetAvrgMomentum()
+    # вычисляем ширину волнового пакета
+    #! здесь используем номер фрэйма как меру времени
+    #! изначально в методе __TimeEvolution мы учли, что dt = 1
+    #! нужно выяснить, справедливо ли это
+    sigma = sigma0 * math.sqrt(1 + (i/sigma0**2)**2)
+
     #update information in text box
-    ax.text(x0, 0.12, r'$\langle x \rangle =$ %0.2lf\n$\langle p \rangle =$ %0.2lf' %(avrg_cordinate, avrg_momentum),
+    ax.text(x0, 0.12, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+           %(avrg_cordinate, avrg_momentum, sigma),
            size = 8,
            bbox=dict(facecolor='white', edgecolor='black', pad=10.0))
 
