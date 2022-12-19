@@ -115,7 +115,8 @@ H =- \frac{\hbar}{2 m dx^2}
 1  & -2 & 1 & 0     & \dots & 0 & 0 \\
 0  & 1  &-2 & 1     & \dots & 0 & 0 \\
    &    &   & \dots &       &   &   \\
-0  & 0  & 0 &       & \dots &-2 & 1 \\\end{pmatrix}
+0  & 0  & 0 &       & \dots &-2 & 1 \\
+\end{pmatrix}
 \begin{pmatrix}
 V_1 &  0  & 0   & 0     & \dots & 0 & 0 \\
 0   & V_2 & 0   & 0     & \dots & 0 & 0 \\
