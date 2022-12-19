@@ -36,7 +36,7 @@ E0 = 0.6
 p0 = math.sqrt(2*E0)
 
 # Потенциальный барьер
-k = 1/300
+k = 1/100
 V_dense = np.array([PotentialBarriers.RampPotential(x, k) for x in x_dense])
 
 # зададим новую волновую функцию
@@ -47,7 +47,7 @@ psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 # don't forget to set an axis limits
 ax.set_xlim(x_start, x_end)
-ax.set_ylim(0.0, 0.12)
+ax.set_ylim(0.0, 3)
 
 
 # next we need to create and initial empty frame
@@ -68,6 +68,9 @@ Notes:
 fps = 20
 total_frames_n = 300
 
+#! сделаем нормировку графиков при отрисовке
+psi_norm_factor = np.mean(V_dense) / max(psi.WaveFunctioProbability())
+
 # define the animation function
 # this function describe how we will change our frame
 # i -- is a number of frame
@@ -83,7 +86,8 @@ def animate(i):
     I = i
     psi.PsiTimeEvolute()
     # update information about 1st plot
-    ln1.set_data(x_dense, psi.WaveFunctioProbability())
+
+    ln1.set_data(x_dense, psi.WaveFunctioProbability() * psi_norm_factor)
     ln2.set_data(x_dense, V_dense)
 
 def main():
