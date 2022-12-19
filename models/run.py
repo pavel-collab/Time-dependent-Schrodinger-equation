@@ -13,7 +13,7 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-subprocess.run(["python3", "RampPotential.py"])
+# subprocess.run(["python3", "RampPotential.py"])
 subprocess.run(["python3", "StepPotential.py"])
 subprocess.run(["python3", "TwoLevelBoxPotential.py"])
 

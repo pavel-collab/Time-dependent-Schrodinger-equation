@@ -26,7 +26,7 @@ p0 = math.sqrt(2*E0)
 # Потенциальный барьер
 V_x0 = 70
 V1 = 0.02
-V2 = 0.8
+V2 = 0.25
 V_dense = np.array([PotentialBarriers.StepPotential(x, V_x0, V1, V2) for x in x_dense])
 
 # зададим новую волновую функцию
