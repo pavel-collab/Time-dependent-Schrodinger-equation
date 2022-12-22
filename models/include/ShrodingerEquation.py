@@ -4,6 +4,7 @@ import math
 from scipy.sparse import diags, spdiags
 from scipy.linalg import expm
 from scipy import integrate
+from numba import jit
 
 class GaussWavePackage:
     __slots__ = [
@@ -50,7 +51,8 @@ class WaveFunction:
 
     # return a matrix (like a mtrix operator)
     # здесь предполагаем нормировку постоянной планка на 1
-    # массу частицы m = 1 
+    # массу частицы m = 1
+    @jit(nopython=True) 
     def __Hamiltonian(self):
         N = self.__N
         dx = self.__dx
@@ -61,6 +63,7 @@ class WaveFunction:
         H = - (1 / (2* dx**2)) * L + V
         return H.toarray()
 
+    @jit(nopython=True)
     def __TimeEvolution(self, dt=1):
         H = self.__Hamiltonian()
 
@@ -72,6 +75,7 @@ class WaveFunction:
     def WaveFunctioProbability(self):
         return self.psi.real**2 + self.psi.imag**2  
 
+    @jit(nopython=True)
     def PsiTimeEvolute(self):
         U = self.__TimeEvolution()
         self.psi = U @ self.psi
@@ -81,6 +85,7 @@ class WaveFunction:
         H = self.__Hamiltonian()
         return H
 
+    @jit(nopython=True)
     def GetAvrgCordinate(self):
         # значение для интегрирования
         intgr_val = self.psi.conjugate() * self.__x * self.psi
@@ -89,6 +94,7 @@ class WaveFunction:
         average_x = integrate.simps(intgr_val, self.__x)
         return average_x
 
+    @jit(nopython=True)
     def GetAvrgMomentum(self):
         # здесь учитывается, что h = 1
         momentum_operator2psi_funtion = -1j * (np.diff(self.psi, 1) / self.__dx)
