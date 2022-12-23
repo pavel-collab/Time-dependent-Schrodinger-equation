@@ -366,3 +366,30 @@ WavePackage.py exec time:
 Program was terminated or there was some error:
 0:11:06.617928
 
+--------------------------------------------------
+23.12.2022-03.09.41
+--------------------------------------------------
+WavePackage.py exec time:
+0:36:46.249252
+
+BoxPit.py exec time:
+0:13:43.948963
+
+HarmonicOscillator.py exec time:
+0:30:23.171206
+
+QuantumTunnelling.py exec time:
+0:13:50.216425
+
+TwoBariers.py exec time:
+0:14:50.243141
+
+RampPotential.py exec time:
+0:22:08.233653
+
+StepPotential.py exec time:
+0:13:47.821827
+
+TwoLevelBoxPotential.py exec time:
+0:13:51.928203
+
