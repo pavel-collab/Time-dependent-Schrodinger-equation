@@ -393,3 +393,68 @@ StepPotential.py exec time:
 TwoLevelBoxPotential.py exec time:
 0:13:51.928203
 
+WavePackage.py exec time:
+Program was terminated or there was some error:
+0:00:10.695388
+
+HarmonicOscillator.py exec time:
+Program was terminated or there was some error:
+0:00:11.620406
+
+--------------------------------------------------
+24.12.2022-01.46.46
+--------------------------------------------------
+WavePackage.py exec time:
+0:37:22.451909
+
+BoxPit.py exec time:
+0:13:56.446750
+
+HarmonicOscillator.py exec time:
+0:30:21.613153
+
+RampPotential.py exec time:
+0:21:56.481031
+
+StepPotential.py exec time:
+0:13:51.571706
+
+QuantumTunnelling.py exec time:
+Program was terminated or there was some error:
+0:00:06.850040
+
+TwoBariers.py exec time:
+Program was terminated or there was some error:
+0:00:05.268311
+
+TwoLevelBoxPotential.py exec time:
+Program was terminated or there was some error:
+0:00:05.105604
+
+--------------------------------------------------
+24.12.2022-10.33.13
+--------------------------------------------------
+WavePackage.py exec time:
+0:36:36.230157
+
+BoxPit.py exec time:
+0:13:46.457433
+
+HarmonicOscillator.py exec time:
+0:30:16.108750
+
+QuantumTunnelling.py exec time:
+0:13:50.029432
+
+TwoBariers.py exec time:
+0:14:57.338629
+
+RampPotential.py exec time:
+0:21:54.146747
+
+StepPotential.py exec time:
+0:13:48.607866
+
+TwoLevelBoxPotential.py exec time:
+0:13:57.800422
+

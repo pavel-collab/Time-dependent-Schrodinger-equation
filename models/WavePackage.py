@@ -4,24 +4,30 @@ import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
 from datetime import datetime
+import json
 
 from include import ShrodingerEquation, PotentialBarriers
 
+with open("./configs/WavePackage.json", 'r') as config_file:
+    info = config_file.read()
+
+JsonData = json.loads(info)
+
 # зададим количество точек на пространственной сетке
-N = 1000
+N = JsonData[0]['N']
 # зададим сетку пространственного диапазона
-x_start = -120
-x_end = 120
+x_start = JsonData[0]['x_start']
+x_end = JsonData[0]['x_end']
 
 x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 # зададим параметры волнового пакета
 # начальное положение
-x0 = -100
+x0 = JsonData[1]['x0']
 # ширина
-sigma0 = 5.0
+sigma0 = JsonData[1]['sigma0']
 # начальная энергия и импульс (считаем что m = 1)
-E0 = 0.5
+E0 = JsonData[1]['E0']
 p0 = math.sqrt(2*E0)
 
 # зададим начальный вид волновой функции, как гаусовский полновой пакет

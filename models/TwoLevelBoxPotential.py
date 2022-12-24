@@ -4,32 +4,38 @@ import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
 from datetime import datetime
+import json
 
 from include import ShrodingerEquation, PotentialBarriers
 
+with open("./configs/TwoLevelBoxPotential.json", 'r') as config_file:
+    info = config_file.read()
+
+JsonData = json.loads(info)
+
 # зададим количество точек на пространственной сетке
-N = 1000
+N = JsonData[0]['N']
 # зададим сетку пространственного диапазона
-x_start = -150
-x_end = 210
+x_start = JsonData[0]['x_start']
+x_end = JsonData[0]['x_end']
 
 x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 # зададим параметры волнового пакета
 # начальное положение
-x0 = 0
+x0 = JsonData[1]['x0']
 # ширина
-sigma0 = 5.0
+sigma0 = JsonData[1]['sigma0']
 # начальная энергия и импульс (считаем что m = 1)
-E0 = 0.5
+E0 = JsonData[1]['E0']
 p0 = math.sqrt(2*E0)
 
 # Потенциальный барьер
-V_x0 = 70
-V0 = 0.01
-V1 = 0.55
-V2 = -0.005
-a = 5
+V_x0 = JsonData[2]['V_x0']
+V0 = JsonData[2]['V0']
+a = JsonData[2]['a']
+V1 = JsonData[2]['V1']
+V2 = JsonData[2]['V2']
 V_dense = np.array([PotentialBarriers.TwoLevelBoxPotential(x, V_x0, a, V0, V1, V2) for x in x_dense])
 
 # зададим новую волновую функцию
