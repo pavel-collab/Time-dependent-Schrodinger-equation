@@ -5,10 +5,22 @@ import math
 from matplotlib import animation
 from datetime import datetime
 import json
+import argparse
 
 from include import ShrodingerEquation, PotentialBarriers
 
-with open("./configs/WavePackage.json", 'r') as config_file:
+parser = argparse.ArgumentParser()
+parser.add_argument("-c", "--config", help="set config file with model settings")
+
+parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
+parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
+args = parser.parse_args()
+
+config_file = "./configs/WavePackage.json"
+if args.config != None:
+    config_file = args.config
+
+with open(config_file, 'r') as config_file:
     info = config_file.read()
 
 JsonData = json.loads(info)
@@ -24,10 +36,18 @@ x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 # зададим параметры волнового пакета
 # начальное положение
 x0 = JsonData[1]['x0']
+
 # ширина
-sigma0 = JsonData[1]['sigma0']
+if args.sigma != None:
+    sigma0 = args.sigma
+else:
+    sigma0 = JsonData[1]['sigma0']
 # начальная энергия и импульс (считаем что m = 1)
-E0 = JsonData[1]['E0']
+if args.energy != None:
+    E0 = args.energy
+else:
+    E0 = JsonData[1]['E0']
+
 p0 = math.sqrt(2*E0)
 
 # зададим начальный вид волновой функции, как гаусовский полновой пакет
