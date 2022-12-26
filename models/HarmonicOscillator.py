@@ -5,10 +5,28 @@ import math
 from matplotlib import animation
 from datetime import datetime
 import json
+import argparse
 
 from include import ShrodingerEquation, PotentialBarriers
 
-with open("./configs/HarmonicOscillator.json", 'r') as config_file:
+'''
+Как показали эксперементы, оптимальное значение omega примерно 1/20, 1/24, 1/28
+Но при этом надо сделать подходящий масштаб графика (чтобы была видна вершина волнового пакета)
+'''
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-c", "--config", help="set config file with model settings")
+
+parser.add_argument("-o", "--omega", type=float, help="set an initial 1/omega value")
+# parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
+# parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
+args = parser.parse_args()
+
+config_file = "./configs/HarmonicOscillator.json"
+if args.config != None:
+    config_file = args.config
+
+with open(config_file, 'r') as config_file:
     info = config_file.read()
 
 JsonData = json.loads(info)
@@ -31,7 +49,10 @@ E0 = JsonData[1]['E0']
 p0 = math.sqrt(2*E0)
 
 # Потерциальную параболическую потенциальную яму
-omega = 1 / JsonData[2]['~omega']
+if args.omega != None:
+    omega = 1 / args.omega
+else:    
+    omega = 1 / JsonData[2]['~omega']
 V_dense = np.array([PotentialBarriers.ParabolaPotential(x, omega) for x in x_dense]) 
 
 # зададим новую волновую функцию

@@ -15,9 +15,9 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-sigma_range = np.linspace(0.5, 5, 10)
+omega_range = [20, 24, 28, 32, 36, 40, 44]
 
-for sigma in sigma_range:
-    subprocess.run(["python3", "WavePackage.py", "-s", str(sigma)])
+for omega in omega_range:
+    subprocess.run(["python3", "HarmonicOscillator.py", "-o", str(omega)])
 
 print("end of run")
