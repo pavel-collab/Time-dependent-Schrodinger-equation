@@ -16,11 +16,11 @@ parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of w
 parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
 args = parser.parse_args()
 
-config_file = "./configs/WavePackage.json"
+config_file_name = "./configs/WavePackage.json"
 if args.config != None:
     config_file = args.config
 
-with open(config_file, 'r') as config_file:
+with open(config_file_name, 'r') as config_file:
     info = config_file.read()
 
 JsonData = json.loads(info)

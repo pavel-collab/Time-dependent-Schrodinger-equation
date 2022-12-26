@@ -15,9 +15,9 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-omega_range = [20, 24, 28, 32, 36, 40, 44]
+k_range = [90, 110, 130, 150, 170, 190, 210, 250, 280, 320]
 
-for omega in omega_range:
-    subprocess.run(["python3", "HarmonicOscillator.py", "-o", str(omega)])
+for k in k_range:
+    subprocess.run(["python3", "RampPotential.py", "-k", str(k)])
 
 print("end of run")

@@ -22,11 +22,11 @@ parser.add_argument("-o", "--omega", type=float, help="set an initial 1/omega va
 # parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
 args = parser.parse_args()
 
-config_file = "./configs/HarmonicOscillator.json"
+config_file_name = "./configs/HarmonicOscillator.json"
 if args.config != None:
     config_file = args.config
 
-with open(config_file, 'r') as config_file:
+with open(config_file_name, 'r') as config_file:
     info = config_file.read()
 
 JsonData = json.loads(info)
