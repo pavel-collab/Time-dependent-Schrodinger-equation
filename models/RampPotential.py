@@ -25,13 +25,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", help="set config file with model settings")
 
 parser.add_argument("-k", type=float, help="set a 1/k value (slope of ramp potetntial)")
-# parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
-# parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
+
+parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
+parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
 args = parser.parse_args()
 
 config_file_name = "./configs/RampPotential.json"
 if args.config != None:
-    config_file = args.config
+    config_file_name = args.config
 
 with open(config_file_name, 'r') as config_file:
     info = config_file.read()
@@ -50,9 +51,16 @@ x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 # начальное положение
 x0 = JsonData[1]['x0']
 # ширина
-sigma0 = JsonData[1]['sigma0']
+if args.sigma != None:
+    sigma0 = args.sigma
+else:
+    sigma0 = JsonData[1]['sigma0']
 # начальная энергия и импульс (считаем что m = 1)
-E0 = JsonData[1]['E0']
+if args.energy != None:
+    E0 = args.energy
+else:
+    E0 = JsonData[1]['E0']
+
 p0 = math.sqrt(2*E0)
 
 # Потенциальный барьер
@@ -60,6 +68,7 @@ if args.k != None:
     k = 1 / args.k
 else:
     k = 1 / JsonData[2]['~k']
+    
 V_dense = np.array([PotentialBarriers.RampPotential(x, k) for x in x_dense])
 
 # зададим новую волновую функцию

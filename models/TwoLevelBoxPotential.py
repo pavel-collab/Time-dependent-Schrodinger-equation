@@ -5,10 +5,26 @@ import math
 from matplotlib import animation
 from datetime import datetime
 import json
+import argparse
 
 from include import ShrodingerEquation, PotentialBarriers
 
-with open("./configs/TwoLevelBoxPotential.json", 'r') as config_file:
+parser = argparse.ArgumentParser()
+parser.add_argument("-c", "--config", help="set config file with model settings")
+
+parser.add_argument("-v0", help="set an initial level of potential")
+parser.add_argument("-v1", help="set the first level of potential")
+parser.add_argument("-v2", help="set the second level of potential")
+
+parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
+parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
+args = parser.parse_args()
+
+config_file_name = "./configs/TwoLevelBoxPotential.json"
+if args.config != None:
+    config_file_name = args.config
+
+with open(config_file_name, 'r') as config_file:
     info = config_file.read()
 
 JsonData = json.loads(info)
@@ -24,18 +40,40 @@ x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 # зададим параметры волнового пакета
 # начальное положение
 x0 = JsonData[1]['x0']
+
 # ширина
-sigma0 = JsonData[1]['sigma0']
+if args.sigma != None:
+    sigma0 = args.sigma
+else:
+    sigma0 = JsonData[1]['sigma0']
 # начальная энергия и импульс (считаем что m = 1)
-E0 = JsonData[1]['E0']
+if args.energy != None:
+    E0 = args.energy
+else:
+    E0 = JsonData[1]['E0']
+
 p0 = math.sqrt(2*E0)
 
 # Потенциальный барьер
 V_x0 = JsonData[2]['V_x0']
-V0 = JsonData[2]['V0']
-a = JsonData[2]['a']
-V1 = JsonData[2]['V1']
-V2 = JsonData[2]['V2']
+
+if args.v != None:
+    V0 = args.v
+else:
+    V0 = JsonData[2]['V0']
+if args.a != None:
+    a = args.a
+else:
+    a = JsonData[2]['a']
+if args.v1 != None:
+    V1 = args.v1
+else:
+    V1 = JsonData[2]['V1']
+if args.v2 != None:
+    V2 = args.v2
+else:
+    V2 = JsonData[2]['V2']
+
 V_dense = np.array([PotentialBarriers.TwoLevelBoxPotential(x, V_x0, a, V0, V1, V2) for x in x_dense])
 
 # зададим новую волновую функцию

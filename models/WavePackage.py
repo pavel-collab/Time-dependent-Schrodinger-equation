@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 config_file_name = "./configs/WavePackage.json"
 if args.config != None:
-    config_file = args.config
+    config_file_name = args.config
 
 with open(config_file_name, 'r') as config_file:
     info = config_file.read()
