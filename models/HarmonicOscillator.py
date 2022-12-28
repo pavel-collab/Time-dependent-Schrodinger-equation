@@ -80,8 +80,8 @@ ln1, = plt.plot([], [])
 ln2, = plt.plot([], [])
 
 # number of frames per second
-fps = 60
-total_frames_n = 700
+fps = JsonData[0]['fps']
+total_frames_n = JsonData[0]['total_frames_n']
 
 #! сделаем нормировку графиков при отрисовке
 psi_norm_factor = np.max(V_dense) / max(psi.WaveFunctioProbability())

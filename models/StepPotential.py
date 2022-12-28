@@ -93,8 +93,8 @@ Notes:
 '''
 
 # number of frames per second
-fps = 20
-total_frames_n = 500
+fps = JsonData[0]['fps']
+total_frames_n = JsonData[0]['total_frames_n']
 
 # define the animation function
 # this function describe how we will change our frame

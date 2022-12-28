@@ -76,8 +76,8 @@ ax.text(0.5, 1, '',
 
 
 # number of frames per second
-fps = 10
-total_frames_n = 500
+fps = JsonData[0]['fps']
+total_frames_n = JsonData[0]['total_frames_n']
 
 psi_norm_factor = max(psi.WaveFunctioProbability()) / max(psi.psi.real)
 

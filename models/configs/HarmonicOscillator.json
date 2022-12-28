@@ -2,7 +2,9 @@
     {
         "N" : 1000,
         "x_start" : -64,
-        "x_end" : 64
+        "x_end" : 64,
+        "fps" : 30,
+        "total_frames_n" : 240
     },
 
     {
