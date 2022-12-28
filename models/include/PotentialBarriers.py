@@ -48,3 +48,33 @@ def TwoLevelBoxPotential(x, x0, d, V0, V1, V2):
         return V1
     else:
         return V2
+
+'''
+x1 and x2 -- centers of potential walls
+x1 must be less then x2
+'''
+def TwoWall(x, x1, x2, d1, d2, V1, V2):
+    if (x >= x1 - d1/2) and (x <= x1 + d1/2):
+        return V1
+    elif (x >= x2 - d2/2) and (x <= x2 + d2/2):
+        return V2
+    else: 
+        return 0
+
+def CraftPotential1(x, x0, V0, d):
+    # y = kx + b
+    k = -V0 / d
+    b = -k * (x0 + d)
+
+    if (x >= x0) and (x <= x0 + d):
+        return k*x + b
+    else:
+        return 0
+
+def CraftPotential2(x, x0, V0):
+    b = 1/V0 - x0
+
+    if x >= x0:
+        return 1 / (x+b)
+    else:
+        return 0
