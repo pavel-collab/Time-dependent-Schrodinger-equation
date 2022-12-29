@@ -12,6 +12,8 @@ from include import ShrodingerEquation, PotentialBarriers
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", help="set config file with model settings")
 
+parser.add_argument("-wf", "--wavefunction", help="plot the wave function (if this key is not used there will be plot only wave package)", action="store_true")
+
 parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
 parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
 args = parser.parse_args()
@@ -68,7 +70,8 @@ ax.set_ylim(-0.05, 0.12)
 
 # next we need to create and initial empty frame
 ln1, = plt.plot([], [])
-ln2, = plt.plot([], [])
+if args.wavefunction != None:
+    ln2, = plt.plot([], [])
 # initial (empty) text box
 ax.text(0.5, 1, '',
            size = 8,
@@ -95,11 +98,7 @@ def animate(i):
     # artificial using of variable i to avoid a wornings
     I = i
     psi.PsiTimeEvolute()
-    # update information about 1st plot
-    ln1.set_data(x_dense, psi.WaveFunctioProbability())
-
     psi_norm_factor = max(psi.WaveFunctioProbability()) / max(psi.psi.real)
-    ln2.set_data(x_dense, psi.psi.real * psi_norm_factor)
 
     # вычисляем среднюю координату и средний импульс
     avrg_cordinate = psi.GetAvrgCordinate()
@@ -109,6 +108,11 @@ def animate(i):
     #! изначально в методе __TimeEvolution мы учли, что dt = 1
     #! нужно выяснить, справедливо ли это
     sigma = sigma0 * math.sqrt(1 + (i/sigma0**2)**2)
+
+    # update information about 1st plot
+    ln1.set_data(x_dense, psi.WaveFunctioProbability())
+    if args.wavefunction != None:
+        ln2.set_data(x_dense, psi.psi.real * psi_norm_factor)
 
     #update information in text box
     ax.text(x0, 0.12, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
