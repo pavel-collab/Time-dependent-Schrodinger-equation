@@ -15,10 +15,7 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-subprocess.run(["python3", "TwoWall.py"])
-subprocess.run(["python3", "CraftPotential1.py"])
-subprocess.run(["python3", "CraftPotential2.py"])   
-subprocess.run(["python3", "WavePackage.py"])   
-subprocess.run(["python3", "WavePackage.py", "-wf"])    
+subprocess.run(["python3", "HarmonicOscillator.py", "-wf"])
+subprocess.run(["python3", "RampPotential.py", "-wf"])
 
 print("end of run")

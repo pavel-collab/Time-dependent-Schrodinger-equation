@@ -12,9 +12,12 @@ from include import ShrodingerEquation, PotentialBarriers
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", help="set config file with model settings")
 
-parser.add_argument("-v0", help="set an initial level of potential")
-parser.add_argument("-v1", help="set the first level of potential")
-parser.add_argument("-v2", help="set the second level of potential")
+parser.add_argument("-wf", "--wavefunction", help="plot the wave function (if this key is not used there will be plot only wave package)", action="store_true")
+
+parser.add_argument("-v0", type=float, help="set an initial level of potential")
+parser.add_argument("-v1", type=float, help="set the first level of potential")
+parser.add_argument("-v2", type=float, help="set the second level of potential")
+parser.add_argument("-a", type=float, help="set a width of potential pit")
 
 parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
 parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
@@ -57,8 +60,8 @@ p0 = math.sqrt(2*E0)
 # Потенциальный барьер
 V_x0 = JsonData[2]['V_x0']
 
-if args.v != None:
-    V0 = args.v
+if args.v0 != None:
+    V0 = args.v0
 else:
     V0 = JsonData[2]['V0']
 if args.a != None:
@@ -88,8 +91,10 @@ ax.set_ylim(-0.007, 0.12)
 
 
 # next we need to create and initial empty frame
-ln1, = plt.plot([], [])
-ln2, = plt.plot([], [])
+ln1, = plt.plot([], [], label='wave package')
+ln2, = plt.plot([], [], label='potential barrier')
+if args.wavefunction != None:
+    ln3, = plt.plot([], [], label='wave function')
 
 '''
 Notes:
@@ -119,9 +124,22 @@ def animate(i):
     # artificial using of variable i to avoid a wornings
     I = i
     psi.PsiTimeEvolute()
+    psi_norm_factor = max(psi.WaveFunctioProbability()) / max(psi.psi.real)
+
+    # вычисляем среднюю координату и средний импульс
+    avrg_cordinate = psi.GetAvrgCordinate()
+    avrg_momentum = psi.GetAvrgMomentum()
+    # вычисляем ширину волнового пакета
+    #! здесь используем номер фрэйма как меру времени
+    #! изначально в методе __TimeEvolution мы учли, что dt = 1
+    #! нужно выяснить, справедливо ли это
+    sigma = sigma0 * math.sqrt(1 + (i/sigma0**2)**2)
+
     # update information about 1st plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability())
     ln2.set_data(x_dense, V_dense)
+    if args.wavefunction != None:
+        ln3.set_data(x_dense, psi.psi.real * psi_norm_factor)
 
 def main():
     start_time = datetime.now()

@@ -667,3 +667,60 @@ Program was terminated or there was some error:
 WavePackage.py exec time:
 0:03:57.495692
 
+CraftPotential1.py exec time:
+0:09:12.220282
+
+CraftPotential1.py exec time:
+0:08:37.412610
+
+CraftPotential1.py exec time:
+0:08:55.872529
+
+--------------------------------------------------
+30.12.2022-13.37.50
+--------------------------------------------------
+BoxPit.py exec time:
+0:06:38.249292
+
+CraftPotential1.py exec time:
+0:08:09.849073
+
+CraftPotential2.py exec time:
+0:13:14.433938
+
+HarmonicOscillator.py exec time:
+0:10:32.004428
+
+StepPotential.py exec time:
+0:06:47.751269
+
+WavePackage.py exec time:
+0:04:11.206551
+
+--------------------------------------------------
+30.12.2022-19.13.01
+--------------------------------------------------
+QuantumTunnelling.py exec time:
+0:07:21.220575
+
+RampPotential.py exec time:
+0:08:03.976816
+
+TwoBariers.py exec time:
+0:07:13.549013
+
+TwoWall.py exec time:
+0:06:42.224435
+
+TwoLevelBoxPotential.py exec time:
+0:06:40.679649
+
+TwoBariers.py exec time:
+0:07:20.686348
+
+RampPotential.py exec time:
+0:08:57.159154
+
+HarmonicOscillator.py exec time:
+0:11:49.875111
+
