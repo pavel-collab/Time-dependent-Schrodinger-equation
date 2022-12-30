@@ -9,18 +9,14 @@ import argparse
 
 from include import ShrodingerEquation, PotentialBarriers
 
-'''
-Как показали эксперементы, оптимальное значение omega примерно 1/20, 1/24, 1/28
-Но при этом надо сделать подходящий масштаб графика (чтобы была видна вершина волнового пакета)
-'''
-
+#----------------------------------------ArgumentParser----------------------------------------
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--config", help="set config file with model settings")
 
 parser.add_argument("-wf", "--wavefunction", help="plot the wave function (if this key is not used there will be plot only wave package)", action="store_true")
+parser.add_argument("-i", "--info", help="add the information on the plot (information about average coordinate, momentum and package sigma)", action="store_true")
 
 parser.add_argument("-o", "--omega", type=float, help="set an initial 1/omega value")
-
 parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
 parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
 args = parser.parse_args()
@@ -34,24 +30,24 @@ with open(config_file_name, 'r') as config_file:
 
 JsonData = json.loads(info)
 
-# зададим количество точек на пространственной сетке
+#----------------------------------------Plot settings----------------------------------------
+# set the number of points on the space grid
 N = JsonData[0]['N']
-# зададим сетку пространственного диапазона
+# set the grid of space range
 x_start = JsonData[0]['x_start']
 x_end = JsonData[0]['x_end']
 
 x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
-# зададим параметры волнового пакета
-# начальное положение
+#----------------------------------------Wave package settings----------------------------------------
+# initial coordinate
 x0 = JsonData[1]['x0']
-
-# ширина
+# width of wave hackage
 if args.sigma != None:
     sigma0 = args.sigma
 else:    
     sigma0 = JsonData[1]['sigma0']
-# начальная энергия и импульс (считаем что m = 1)
+# initial energy and momentum (note: m = 1)
 if args.energy != None:
     E0 = args.energy
 else:
@@ -59,69 +55,83 @@ else:
     
 p0 = math.sqrt(2*E0)
 
-# Потерциальную параболическую потенциальную яму
+#----------------------------------------Potential barrier settings----------------------------------------
 if args.omega != None:
     omega = 1 / args.omega
 else:    
     omega = 1 / JsonData[2]['~omega']
 V_dense = np.array([PotentialBarriers.ParabolaPotential(x, omega) for x in x_dense]) 
 
-# зададим новую волновую функцию
-# зададим начальный вид волновой функции, как гаусовский полновой пакет
+# set an initial type of wave package like a Gauss wave package
 psi0 = ShrodingerEquation.GaussWavePackage(x_dense, x0, sigma0, p0)
+
+#----------------------------------------Set a psi function----------------------------------------
 psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 
+#----------------------------------------Plot settings----------------------------------------
+# set the figure, axes limits and title
 fig, ax = plt.subplots(1, 1, figsize=(8, 4))
-# don't forget to set an axis limits
+
 ax.set_xlim(x_start, x_end)
 ax.set_ylim(0.0, 1.0)
 
+plt.title('Harmonic Oscillator')
+plt.xlabel('x')
+plt.ylabel(r'$|\psi|^2$')
 
-# next we need to create and initial empty frame
+# create and initial empty frame
 ln1, = plt.plot([], [], label='wave package')
 ln2, = plt.plot([], [], label='potential barrier')
 if args.wavefunction != None:
     ln3, = plt.plot([], [], label='wave function')
 
+# initial text box
+ax.text(
+    0.5, 1, '',
+    size = 8,
+    bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
+)
 plt.legend(loc='upper right')
 
-# number of frames per second
+# fps and total number of frames
 fps = JsonData[0]['fps']
 total_frames_n = JsonData[0]['total_frames_n']
 
-#! сделаем нормировку графиков при отрисовке
+# norm factor for plot
 norm_factor = np.max(V_dense) / max(psi.WaveFunctioProbability())
 
-# define the animation function
-# this function describe how we will change our frame
-# i -- is a number of frame
-# it's obvious that the nember of frame consists of time
+#----------------------------------------Animation function----------------------------------------
+# function animate define how frames will be changed during the time
 def animate(i):
-    # Lets explain what does it for
-    # in matplotlib animation the animate function really wants to
-    # depend of i (number of frame)
-    # so, if the interpritator see that i is not used
-    # it waise a warning
-    # but in pur case we don't need to use the number of frame, so we make  an
-    # artificial using of variable i to avoid a wornings
+    '''
+    Lets explain what does it for. In matplotlib animation the animate function really wants to
+    depend of i (number of frame), so, if the interpritator see that i is not used,
+    it will be a warning, but in pur case we don't need to use the number of frame, so we make an
+    artificial using of variable i to avoid a warnings.
+    '''
     I = i
     psi.PsiTimeEvolute()
     psi_norm_factor = (max(psi.WaveFunctioProbability()) / max(psi.psi.real)) * norm_factor
 
-    # вычисляем среднюю координату и средний импульс
-    avrg_cordinate = psi.GetAvrgCordinate()
-    avrg_momentum = psi.GetAvrgMomentum()
-    # вычисляем ширину волнового пакета
-    #! здесь используем номер фрэйма как меру времени
-    #! изначально в методе __TimeEvolution мы учли, что dt = 1
-    #! нужно выяснить, справедливо ли это
-    sigma = sigma0 * math.sqrt(1 + (i/sigma0**2)**2)
-
-    # update information about 1st plot
+    # update information about plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability() * norm_factor)
     ln2.set_data(x_dense, V_dense)
     if args.wavefunction != None:
         ln3.set_data(x_dense, psi.psi.real * psi_norm_factor)
+
+    # update the information (if it need to be)
+    if args.info != None:
+        avrg_cordinate = psi.GetAvrgCordinate()
+        avrg_momentum = psi.GetAvrgMomentum()
+        sigma = sigma0 * math.sqrt(1 + (i/sigma0**2)**2)
+        
+        #update information in text box
+        ax.text(
+            x0, 0.12, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            %(avrg_cordinate, avrg_momentum, sigma),
+            size = 8,
+            bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
+        )
 
 def main():
     start_time = datetime.now()
