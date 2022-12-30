@@ -90,7 +90,7 @@ plt.ylabel(r'$|\psi|^2$')
 # create and initial empty frame
 ln1, = plt.plot([], [], label='wave package')
 ln2, = plt.plot([], [], label='potential pit')
-if args.wavefunction != None:
+if args.wavefunction != False:
     ln3, = plt.plot([], [], label='wave function')
 
 # initial text box
@@ -125,7 +125,7 @@ def animate(i):
         ln3.set_data(x_dense, psi.psi.real * psi_norm_factor)
     
     # update the information (if it need to be)
-    if args.info != None:
+    if args.info != False:
         avrg_cordinate = psi.GetAvrgCordinate()
         avrg_momentum = psi.GetAvrgMomentum()
         sigma = sigma0 * math.sqrt(1 + (i/sigma0**2)**2)
