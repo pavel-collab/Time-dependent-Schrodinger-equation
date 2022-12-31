@@ -87,7 +87,7 @@ if args.wavefunction != False:
 
 # initial text box
 ax.text(
-    0.5, 1, '',
+    x_start, 2.5, '',
     size = 8,
     bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
 )
@@ -111,7 +111,7 @@ def animate(i):
     '''
     I = i
     psi.PsiTimeEvolute()
-    psi_norm_factor = max(psi.WaveFunctioProbability()) / max(psi.psi.real)
+    psi_norm_factor = (max(psi.WaveFunctioProbability()) / max(psi.psi.real)) * norm_factor
 
     # update information about plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability())
@@ -127,7 +127,7 @@ def animate(i):
         
         #update information in text box
         ax.text(
-            x0, 0.12, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            x_start, 2.5, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
             %(avrg_cordinate, avrg_momentum, sigma),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
