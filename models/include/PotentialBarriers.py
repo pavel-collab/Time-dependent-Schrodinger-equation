@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 '''
 File contains a functions of different potential barriers. 
@@ -110,6 +111,10 @@ V0 -- the hight of potential barrier
 a -- width of potential barrier
 '''
 def TransmissionProbability(E, V0, a):
-    """Transmission probability of through a rectangular potential barrier."""
-    k = (V0 * np.sinh(a * np.sqrt(2 * (V0 - E))))**2 / (4 * E * (V0 - E))
-    return 1 / (1 + k)
+    if V0 > E:
+        k = (V0 * np.sinh(a * np.sqrt(2 * (V0 - E))))**2 / (4 * E * (V0 - E))
+        return 1 / (1 + k)
+    else:
+        k1 = 2*E
+        kb = 2*(E - V0)
+        return 1 / (1 + ((k1 - kb)**2/(4*k1*kb)) * math.sin(math.sqrt(2*(E - V0))*a)**2)

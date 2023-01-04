@@ -16,14 +16,9 @@ parser.add_argument("-c", "--config", help="set config file with model settings"
 parser.add_argument("-wf", "--wavefunction", help="plot the wave function (if this key is not used there will be plot only wave package)", action="store_true")
 parser.add_argument("-i", "--info", help="add the information on the plot (information about average coordinate, momentum and package sigma)", action="store_true")
 
-parser.add_argument("-v", type=float, help="set a depth of potential pit")
-parser.add_argument("-a", type=float, help="set a width of potential pit")
-
-parser.add_argument("-s", "--sigma", type=float, help="set an initial sigma of wave package")
-parser.add_argument("-e", "--energy", type=float, help="set an initial energy of wave package")
 args = parser.parse_args()
 
-config_file_name = "./configs/QuantumTunnelling.json"
+config_file_name = "./configs/QuantumTunnellingCompare.json"
 if args.config != None:
     config_file_name = args.config
 
@@ -42,71 +37,85 @@ x_end = JsonData[0]['x_end']
 x_dense, dx = np.linspace(x_start, x_end, N, retstep=True)
 
 #----------------------------------------Wave package settings----------------------------------------
+#========================================Object 1========================================
 # initial coordinate
-x0 = JsonData[1]['x0']
-# width of wave package
-if args.sigma != None:
-    sigma0 = args.sigma
-else:
-    sigma0 = JsonData[1]['sigma0']
+x10 = JsonData[1]['x10']
+# width of wave hackage
+sigma10 = JsonData[1]['sigma10']
 # initial energy and momentum (note: m = 1)
-if args.energy != None:
-    E0 = args.energy
-else:
-    E0 = JsonData[1]['E0']
-p0 = math.sqrt(2*E0)
+E10 = JsonData[1]['E10']
+p10 = math.sqrt(2*E10)
+
+#========================================Object 2========================================
+# initial coordinate
+x20 = JsonData[1]['x20']
+# width of wave hackage
+sigma20 = JsonData[1]['sigma20']
+# initial energy and momentum (note: m = 1)
+E20 = JsonData[1]['E20']
+p20 = math.sqrt(2*E20)
 
 #----------------------------------------Potential barrier settings----------------------------------------
-V_x0 = JsonData[2]['V_x0']
+#========================================Object 1========================================
+V_x10 = JsonData[2]['V_x10']
+V10 = JsonData[2]['V10']
+a1 = JsonData[2]['a1']
+V_dense1 = np.array([PotentialBarriers.BoxBarier(x, V_x10, a1, V10) for x in x_dense])
 
-if args.v != None:
-    V0 = args.v
-else:
-    V0 = JsonData[2]['V0']
-if args.a != None:
-    a = args.a
-else:
-    a = JsonData[2]['a']
-
-V_dense = np.array([PotentialBarriers.BoxBarier(x, V_x0, a, V0) for x in x_dense])
+#========================================Object 2========================================
+V_x20 = JsonData[2]['V_x20']
+V20 = JsonData[2]['V20']
+a2 = JsonData[2]['a2']
+V_dense2 = np.array([PotentialBarriers.BoxBarier(x, V_x20, a2, V20) for x in x_dense])
 
 # set an initial type of wave package like a Gauss wave package
-psi0 = ShrodingerEquation.GaussWavePackage(x_dense, x0, sigma0, p0)
+psi01 = ShrodingerEquation.GaussWavePackage(x_dense, x10, sigma10, p10)
+psi02 = ShrodingerEquation.GaussWavePackage(x_dense, x20, sigma20, p20)
 
 #----------------------------------------Set a psi function----------------------------------------
-psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
+psi1 = ShrodingerEquation.WaveFunction(psi01, x_dense, V_dense1)
+psi2 = ShrodingerEquation.WaveFunction(psi02, x_dense, V_dense2)
 
 #----------------------------------------Plot settings----------------------------------------
 # set the figure, axes limits and title
-fig, ax = plt.subplots(1, 1, figsize=(8, 4))
+fig = plt.figure(figsize=(8, 4))
+ax1 = plt.subplot(1, 2, 1)
+ax2 = plt.subplot(1, 2, 2)
 
-ax.set_xlim(x_start, x_end)
-ax.set_ylim(0.0, 0.12)
+ax1.set_xlim(x_start, x_end)
+ax1.set_ylim(-0.05, 0.12)
+ax2.set_xlim(x_start, x_end)
+ax2.set_ylim(-0.05, 0.12)
+
+# create and initial empty frame
+ln1, = ax1.plot([], [], label='wave package')
+ln2, = ax1.plot([], [], label='potential pit')
+ln3, = ax2.plot([], [], label='wave package')
+ln4, = ax2.plot([], [], label='potential pit')
+if args.wavefunction != False:
+    ln5, = ax1.plot([], [], label='wave function')
+    ln6, = ax2.plot([], [], label='wave function')
+
+# initial text box
+ax1.text(
+    x_start, 1, '',
+    size = 8,
+    bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
+)
+# initial text box
+ax2.text(
+    x_start, 1, '',
+    size = 8,
+    bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
+)
 
 plt.title('Quantum tunnelling')
 plt.xlabel('x')
 plt.ylabel(r'$|\psi|^2$')
 
-# create and initial empty frame
-ln1, = plt.plot([], [], label='wave packege')
-ln2, = plt.plot([], [], label='potential barrier')
-if args.wavefunction != False:
-    ln3, = plt.plot([], [], label='wave function')
-
-# initial text box
-ax.text(
-    x_start, 0.1, '',
-    size = 8,
-    bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
-)
-plt.legend(loc='upper right')
-
 # fps and total number of frames
 fps = JsonData[0]['fps']
 total_frames_n = JsonData[0]['total_frames_n']
-
-#----------------------------------------Transmission Probability----------------------------------------
-T = PotentialBarriers.TransmissionProbability(E0, V0, a)
 
 #----------------------------------------Animation function----------------------------------------
 # function animate define how frames will be changed during the time
@@ -118,25 +127,40 @@ def animate(i):
     artificial using of variable i to avoid a warnings.
     '''
     I = i
-    psi.PsiTimeEvolute()
-    psi_norm_factor = max(psi.WaveFunctioProbability()) / max(psi.psi.real)
+    psi1.PsiTimeEvolute()
+    psi2.PsiTimeEvolute()
+    psi_norm_factor1 = max(psi1.WaveFunctioProbability()) / max(psi1.psi.real)
+    psi_norm_factor2 = max(psi2.WaveFunctioProbability()) / max(psi2.psi.real)
 
     # update information about plot
-    ln1.set_data(x_dense, psi.WaveFunctioProbability())
-    ln2.set_data(x_dense, V_dense)
+    ln1.set_data(x_dense, psi1.WaveFunctioProbability())
+    ln2.set_data(x_dense, V_dense1)
+    ln3.set_data(x_dense, psi2.WaveFunctioProbability())
+    ln4.set_data(x_dense, V_dense2)
     if args.wavefunction:
-        ln3.set_data(x_dense, psi.psi.real * psi_norm_factor)
+        ln5.set_data(x_dense, psi1.psi.real * psi_norm_factor1)
+        ln6.set_data(x_dense, psi2.psi.real * psi_norm_factor2)
     
     # update the information (if it need to be)
     if args.info != False:
-        avrg_cordinate = psi.GetAvrgCordinate()
-        avrg_momentum = psi.GetAvrgMomentum()
-        sigma = sigma0 * math.sqrt(1 + (i/sigma0**2)**2)
+        avrg_cordinate1 = psi1.GetAvrgCordinate()
+        avrg_momentum1 = psi1.GetAvrgMomentum()
+        sigma1 = sigma10 * math.sqrt(1 + (i/sigma10**2)**2)
         
+        avrg_cordinate2 = psi2.GetAvrgCordinate()
+        avrg_momentum2 = psi2.GetAvrgMomentum()
+        sigma2 = sigma20 * math.sqrt(1 + (i/sigma20**2)**2)
+
         #update information in text box
-        ax.text(
-            x_start, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
-            %(T, avrg_cordinate, avrg_momentum, sigma),
+        ax1.text(
+            x_start, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            %(avrg_cordinate1, avrg_momentum1, sigma1),
+            size = 8,
+            bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
+        )
+        ax1.text(
+            x_start, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            %(avrg_cordinate2, avrg_momentum2, sigma2),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
         )
@@ -148,19 +172,19 @@ def main():
     try:
         ani = animation.FuncAnimation(fig, animate, frames=total_frames_n, interval=fps)
         # here we can save the animation like a video
-        f = r"../video/quantum_tunnelling_" + date + r"_.mp4" 
+        f = r"../video/quantum_tunnelling_compare_" + date + r"_.mp4" 
         writervideo = animation.FFMpegWriter(fps=fps) 
         ani.save(f, writer=writervideo)
 
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('QuantumTunnelling.py exec time:\n')
+        log_file.write('QuantumTunnellingCompare.py exec time:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
     except:
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
-        log_file.write('QuantumTunnelling.py exec time:\n')
+        log_file.write('QuantumTunnellingCompare.py exec time:\n')
         log_file.write('Program was terminated or there was some error:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
