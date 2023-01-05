@@ -1,192 +1,114 @@
 --------------------------------------------------
-03.01.2023-01.36.47
+05.01.2023-12.37.15
 --------------------------------------------------
-StepPotential.py exec time:
-0:19:05.758734
+WavePackageCompare.py exec time:
+0:20:55.053922
 
-StepPotential.py exec time:
-0:18:50.808514
+WavePackageCompare.py exec time:
+0:35:40.584500
 
-TwoBariers.py exec time:
-0:19:37.351292
+BoxPitCompare.py exec time:
+0:13:46.394836
 
-TwoBariers.py exec time:
-0:19:33.530109
+BoxPitCompare.py exec time:
+0:23:02.930838
 
-TwoBariers.py exec time:
-0:19:33.041572
+QuantumTunnellingCompare.py exec time:
+0:19:10.482620
 
-TwoBariers.py exec time:
-0:19:27.811363
+QuantumTunnellingCompare.py exec time:
+Program was terminated or there was some error:
+0:00:03.138361
 
-TwoBariers.py exec time:
-0:19:38.039472
-
-TwoBariers.py exec time:
-0:19:36.667258
-
-QuantumTunnelling.py exec time:
-0:18:52.027460
-
-QuantumTunnelling.py exec time:
-0:19:00.719803
-
-QuantumTunnelling.py exec time:
-0:18:44.107633
-
-QuantumTunnelling.py exec time:
-0:18:51.247218
-
-QuantumTunnelling.py exec time:
-0:18:49.997682
-
-TwoLevelBoxPotential.py exec time:
-0:18:52.066207
-
-TwoLevelBoxPotential.py exec time:
-0:19:00.245039
-
-TwoLevelBoxPotential.py exec time:
-0:19:02.927228
-
-TwoLevelBoxPotential.py exec time:
-0:19:02.087250
-
-TwoLevelBoxPotential.py exec time:
-0:18:53.287817
-
---------------------------------------------------
-03.01.2023-20.03.48
---------------------------------------------------
 WavePackage.py exec time:
-0:01:46.173992
+0:10:19.688072
 
---------------------------------------------------
-03.01.2023-20.06.38
---------------------------------------------------
-WavePackage.py exec time:
-0:01:49.630253
+TOTAL EXECUTE TIME: 2:03:04.647863
 
-total execute time: 0:01:50.389047
-==================================================
+QuantumTunnellingCompare.py exec time:
+Program was terminated or there was some error:
+0:00:02.729211
+
+QuantumTunnelling.py exec time:
+Program was terminated or there was some error:
+0:00:01.487015
 
 BoxPit.py exec time:
 Program was terminated or there was some error:
-0:00:18.705783
+0:00:11.930049
 
 QuantumTunnelling.py exec time:
 Program was terminated or there was some error:
-0:00:11.010111
-
-WavePackageCompare.py exec time:
-Program was terminated or there was some error:
-0:00:11.227024
-
-StepPotential.py exec time:
-Program was terminated or there was some error:
-0:00:05.560412
+0:00:01.512574
 
 QuantumTunnelling.py exec time:
 Program was terminated or there was some error:
-0:00:16.821824
+0:00:01.471436
 
---------------------------------------------------
-03.01.2023-23.35.51
---------------------------------------------------
-StepPotential.py exec time:
+QuantumTunnelling.py exec time:
 Program was terminated or there was some error:
-0:00:01.827032
+0:00:11.172853
+
+QuantumTunnelling.py exec time:
+Program was terminated or there was some error:
+0:00:01.382566
+
+QuantumTunnelling.py exec time:
+Program was terminated or there was some error:
+0:00:01.482061
 
 --------------------------------------------------
-03.01.2023-23.36.12
+05.01.2023-15.45.18
 --------------------------------------------------
-StepPotential.py exec time:
-0:19:01.550566
-
-QuantumTunnelling.py exec time:
-0:23:37.781081
-
-TOTAL EXECUTE TIME: 0:42:41.395804
-
 --------------------------------------------------
-04.01.2023-00.25.59
+05.01.2023-15.45.49
 --------------------------------------------------
-QuantumTunnelling.py exec time:
-0:22:07.106739
+WavePackage.py exec time:
+0:10:30.534985
+
+WavePackage.py exec time:
+0:10:29.184829
+
+WavePackage.py exec time:
+0:10:35.306542
+
+WavePackage.py exec time:
+0:10:26.381314
+
+WavePackage.py exec time:
+0:10:35.411419
+
+WavePackage.py exec time:
+0:10:34.891016
+
+TOTAL EXECUTE TIME: 1:03:16.546298
 
 QuantumTunnelling.py exec time:
-0:22:09.369326
+Program was terminated or there was some error:
+0:00:06.085030
+
+WavePackage.py exec time:
+0:12:06.801949
 
 QuantumTunnelling.py exec time:
-0:22:13.192980
+Program was terminated or there was some error:
+0:00:01.488023
 
 QuantumTunnelling.py exec time:
-0:22:13.235077
+Program was terminated or there was some error:
+0:00:06.568704
 
-BoxPitCompare.py exec time:
-0:12:58.597445
+QuantumTunnelling.py exec time:
+Program was terminated or there was some error:
+0:00:09.443359
+
+QuantumTunnelling.py exec time:
+Program was terminated or there was some error:
+0:00:01.509944
+
+QuantumTunnelling.py exec time:
+0:22:20.849329
 
 QuantumTunnellingCompare.py exec time:
-0:18:47.381000
-
-WavePackageCompare.py exec time:
-0:03:26.761821
-
-BoxPitCompare.py exec time:
-0:21:42.593034
-
-QuantumTunnellingCompare.py exec time:
-0:37:41.286193
-
-WavePackageCompare.py exec time:
-0:03:45.686884
-
-BoxPitCompare.py exec time:
-0:21:53.898965
-
-QuantumTunnellingCompare.py exec time:
-0:37:37.129454
-
-WavePackageCompare.py exec time:
-0:03:53.179104
-
-TOTAL EXECUTE TIME: 4:10:42.247157
-
---------------------------------------------------
-04.01.2023-15.49.55
---------------------------------------------------
-QuantumTunnelling.py exec time:
-0:22:13.883291
-
-QuantumTunnelling.py exec time:
-0:22:14.952880
-
-QuantumTunnelling.py exec time:
-0:22:29.709384
-
-QuantumTunnelling.py exec time:
-0:22:34.529792
-
-QuantumTunnelling.py exec time:
-0:22:32.515182
-
-QuantumTunnelling.py exec time:
-0:22:47.562050
-
-QuantumTunnelling.py exec time:
-0:22:24.627754
-
-QuantumTunnelling.py exec time:
-0:22:33.049619
-
-QuantumTunnelling.py exec time:
-0:22:15.116224
-
-WavePackageCompare.py exec time:
-0:20:19.734437
-
-WavePackageCompare.py exec time:
-0:33:52.352472
-
-TOTAL EXECUTE TIME: 4:16:29.023827
+0:46:45.834863
 

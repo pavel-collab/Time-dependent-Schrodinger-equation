@@ -117,6 +117,10 @@ plt.ylabel(r'$|\psi|^2$')
 fps = JsonData[0]['fps']
 total_frames_n = JsonData[0]['total_frames_n']
 
+#----------------------------------------Transmission Probability----------------------------------------
+T1 = PotentialBarriers.TransmissionProbability(E10, V10, a1)
+T2 = PotentialBarriers.TransmissionProbability(E20, V20, a2)
+
 #----------------------------------------Animation function----------------------------------------
 # function animate define how frames will be changed during the time
 def animate(i):
@@ -153,14 +157,14 @@ def animate(i):
 
         #update information in text box
         ax1.text(
-            x_start, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
-            %(avrg_cordinate1, avrg_momentum1, sigma1),
+            x_start, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            %(T1, avrg_cordinate1, avrg_momentum1, sigma1),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
         )
         ax2.text(
-            x_start, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
-            %(avrg_cordinate2, avrg_momentum2, sigma2),
+            x_start, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            %(T2, avrg_cordinate2, avrg_momentum2, sigma2),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
         )
