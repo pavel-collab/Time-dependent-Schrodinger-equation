@@ -70,8 +70,8 @@ psi2 = ShrodingerEquation.WaveFunction(psi02, x_dense, V_dense2)
 #----------------------------------------Plot settings----------------------------------------
 # set the figure, axes limits and title
 fig = plt.figure(figsize=(8, 4))
-ax1 = plt.subplot(1, 2, 1)
-ax2 = plt.subplot(1, 2, 2)
+ax1 = plt.subplot(2, 1, 1)
+ax2 = plt.subplot(2, 1, 2)
 
 ax1.set_xlim(x_start, x_end)
 ax1.set_ylim(-0.05, 0.12)
@@ -80,7 +80,7 @@ ax2.set_ylim(-0.05, 0.12)
 
 # create and initial empty frame
 ln1, = ax1.plot([], [], label='wave package')
-ln2, = ax1.plot([], [], label='potential pit')
+ln2, = ax2.plot([], [], label='potential pit')
 if args.wavefunction != False:
     ln3, = ax1.plot([], [], label='wave function')
     ln4, = ax2.plot([], [], label='wave function')
@@ -146,7 +146,7 @@ def animate(i):
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
         )
-        ax1.text(
+        ax2.text(
             x_start, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
             %(avrg_cordinate2, avrg_momentum2, sigma2),
             size = 8,
