@@ -112,3 +112,20 @@ QuantumTunnelling.py exec time:
 QuantumTunnellingCompare.py exec time:
 0:46:45.834863
 
+--------------------------------------------------
+05.01.2023-22.11.33
+--------------------------------------------------
+BoxPitCompare.py exec time:
+0:15:29.582350
+
+QuantumTunnellingCompare.py exec time:
+0:22:38.960859
+
+WavePackageCompare.py exec time:
+0:24:35.914905
+
+TOTAL EXECUTE TIME: 1:02:47.019772
+
+BoxPitCompare.py exec time:
+0:14:49.968302
+

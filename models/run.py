@@ -16,10 +16,9 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-sigma_r = np.array([7, 8, 9, 10, 11, 12])
-
-for s in sigma_r:
-    subprocess.run(["python3", "WavePackage.py", "-s", str(s)])
+subprocess.run(["python3", "BoxPitCompare.py"])
+subprocess.run(["python3", "QuantumTunnellingCompare.py"])
+subprocess.run(["python3", "WavePackageCompare.py"])
 
 total_exec_t = datetime.now() - start
 

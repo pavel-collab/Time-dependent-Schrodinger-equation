@@ -69,7 +69,7 @@ psi2 = ShrodingerEquation.WaveFunction(psi02, x_dense, V_dense2)
 
 #----------------------------------------Plot settings----------------------------------------
 # set the figure, axes limits and title
-fig = plt.figure(figsize=(8, 4))
+fig = plt.figure(figsize=(8, 12))
 ax1 = plt.subplot(2, 1, 1)
 ax2 = plt.subplot(2, 1, 2)
 
@@ -98,6 +98,11 @@ ax2.text(
     bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
 )
 
+plt.subplot(2, 1, 1)
+plt.title('Wave Package')
+plt.xlabel('x')
+plt.ylabel(r'$|\psi|^2$')
+plt.subplot(2, 1, 2)
 plt.title('Wave Package')
 plt.xlabel('x')
 plt.ylabel(r'$|\psi|^2$')
