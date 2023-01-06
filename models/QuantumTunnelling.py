@@ -95,7 +95,7 @@ if args.wavefunction != False:
 
 # initial text box
 ax.text(
-    x_start, 0.1, '',
+    x_start+30, 0.1, '',
     size = 8,
     bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
 )
@@ -135,7 +135,7 @@ def animate(i):
         
         #update information in text box
         ax.text(
-            x_start, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            x_start+30, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
             %(T, avrg_cordinate, avrg_momentum, sigma),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)

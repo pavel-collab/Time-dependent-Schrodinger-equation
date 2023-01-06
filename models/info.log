@@ -129,3 +129,95 @@ TOTAL EXECUTE TIME: 1:02:47.019772
 BoxPitCompare.py exec time:
 0:14:49.968302
 
+--------------------------------------------------
+06.01.2023-11.29.31
+--------------------------------------------------
+BoxPit.py exec time:
+0:08:39.149733
+
+BoxPitCompare.py exec time:
+0:13:47.739848
+
+HarmonicOscillator.py exec time:
+Program was terminated or there was some error:
+2:52:05.082006
+
+--------------------------------------------------
+06.01.2023-14.44.30
+--------------------------------------------------
+BoxPit.py exec time:
+0:10:18.259383
+
+BoxPitCompare.py exec time:
+0:14:05.794049
+
+HarmonicOscillator.py exec time:
+0:11:03.136605
+
+RampPotential.py exec time:
+0:07:44.479703
+
+StepPotential.py exec time:
+0:11:25.835814
+
+TwoBariers.py exec time:
+0:11:46.572434
+
+TwoLevelBoxPotential.py exec time:
+0:11:23.010294
+
+TwoWall.py exec time:
+0:06:53.488207
+
+WavePackage.py exec time:
+0:10:30.053426
+
+WavePackageCompare.py exec time:
+0:20:58.922735
+
+TOTAL EXECUTE TIME: 1:56:18.416284
+
+--------------------------------------------------
+06.01.2023-17.49.32
+--------------------------------------------------
+BoxPit.py exec time:
+0:10:58.031904
+
+BoxPitCompare.py exec time:
+0:22:15.402213
+
+HarmonicOscillator.py exec time:
+0:15:01.783672
+
+QuantumTunnelling.py exec time:
+0:22:46.415312
+
+QuantumTunnellingCompare.py exec time:
+0:46:51.268119
+
+RampPotential.py exec time:
+0:12:16.585749
+
+StepPotential.py exec time:
+0:19:30.301439
+
+TwoBariers.py exec time:
+0:20:21.820539
+
+TwoLevelBoxPotential.py exec time:
+0:21:37.923655
+
+TwoWall.py exec time:
+0:13:05.595860
+
+WavePackage.py exec time:
+0:20:06.016270
+
+WavePackageCompare.py exec time:
+0:36:16.003639
+
+TOTAL EXECUTE TIME: 4:21:20.104170
+
+RampPotential.py exec time:
+0:14:43.509777
+

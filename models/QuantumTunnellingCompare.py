@@ -98,13 +98,13 @@ if args.wavefunction != False:
 
 # initial text box
 ax1.text(
-    x_start, 1, '',
+    x_start+30, 1, '',
     size = 8,
     bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
 )
 # initial text box
 ax2.text(
-    x_start, 1, '',
+    x_start+30, 1, '',
     size = 8,
     bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
 )
@@ -162,13 +162,13 @@ def animate(i):
 
         #update information in text box
         ax1.text(
-            x_start, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            x_start+30, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
             %(T1, avrg_cordinate1, avrg_momentum1, sigma1),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
         )
         ax2.text(
-            x_start, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            x_start+30, 0.1, r'$T = %0.2lf, \langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
             %(T2, avrg_cordinate2, avrg_momentum2, sigma2),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)

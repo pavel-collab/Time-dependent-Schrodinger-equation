@@ -79,12 +79,6 @@ ln1, = plt.plot([], [], label='wave package')
 if args.wavefunction != False:
     ln2, = plt.plot([], [], label='wave function')
 
-# initial text box
-ax.text(
-    0.5, 1, '',
-    size = 8,
-    bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
-)
 plt.legend(loc='upper right')
 
 # fps and total number of frames
@@ -117,7 +111,7 @@ def animate(i):
         
         #update information in text box
         ax.text(
-            x0, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
+            x_start+30, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
             %(avrg_cordinate, avrg_momentum, sigma),
             size = 8,
             bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
