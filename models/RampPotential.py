@@ -98,7 +98,7 @@ fps = JsonData[0]['fps']
 total_frames_n = JsonData[0]['total_frames_n']
 
 # norm factor for wave function
-norm_factor = np.max(V_dense) / max(psi.WaveFunctioProbability())
+psi_norm_factor = np.max(V_dense) / max(psi.WaveFunctioProbability())
 
 #----------------------------------------Animation function----------------------------------------
 # function animate define how frames will be changed during the time
@@ -111,13 +111,13 @@ def animate(i):
     '''
     I = i
     psi.PsiTimeEvolute()
-    psi_norm_factor = (max(psi.WaveFunctioProbability()) / max(psi.psi.real)) * norm_factor
 
     # update information about plot
     ln1.set_data(x_dense, psi.WaveFunctioProbability() * psi_norm_factor)
     ln2.set_data(x_dense, V_dense)
     if args.wavefunction:
-        ln3.set_data(x_dense, psi.psi.real * psi_norm_factor)
+        wf_norm_factor = (max(psi.WaveFunctioProbability() * psi_norm_factor) / max(psi.psi.real))
+        ln3.set_data(x_dense, psi.psi.real * wf_norm_factor)
     
     # update the information (if it need to be)
     if args.info != False:
