@@ -16,15 +16,10 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-a_range = np.arange(1, 20)
+E_range = np.array([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.49])
 
-for a in a_range:
-    subprocess.run(["python3", "QuantumTunnelling.py", "-i", "-a", str(a)])
-
-# E_range = np.array([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.49])
-
-# for E in E_range:
-#     subprocess.run(["python3", "QuantumTunnelling.py", "-i", "-e", str(E)])
+for E in E_range:
+    subprocess.run(["python3", "QuantumTunnelling.py", "-i", "-e", str(E)])
 
 total_exec_t = datetime.now() - start
 
