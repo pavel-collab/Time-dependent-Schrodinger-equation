@@ -4,13 +4,13 @@
         "x_start" : -150,
         "x_end" : 210,
         "fps" : 30,
-        "total_frames_n" : 240
+        "total_frames_n" : 600
     },
 
     {
         "x10" : -100,
         "sigma10" : 5.0,
-        "E10" : 0.5,
+        "E10" : 0.3,
 
         "x20" : -100,
         "sigma20" : 5.0,

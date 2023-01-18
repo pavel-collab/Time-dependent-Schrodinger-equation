@@ -16,10 +16,35 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-E_range = np.array([0.51, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0])
+subprocess.run(["python3", "BoxPit.py"])
+subprocess.run(["python3", "HarmonicOscillator.py"])
+subprocess.run(["python3", "QuantumTunnelling.py"])
+subprocess.run(["python3", "RampPotential.py"])
+subprocess.run(["python3", "StepPotential.py"])
+subprocess.run(["python3", "TwoBarriers.py"])
+subprocess.run(["python3", "TwoLevelBoxPotential.py"])
+subprocess.run(["python3", "TwoWall.py"])
+subprocess.run(["python3", "WavePackage.py"])
 
-for E in E_range:
-    subprocess.run(["python3", "QuantumTunnelling.py", "-i", "-e", str(E)])
+# subprocess.run(["python3", "BoxPit.py", "-i"])
+# subprocess.run(["python3", "HarmonicOscillator.py", "-i"])
+# subprocess.run(["python3", "QuantumTunnelling.py", "-i"])
+# subprocess.run(["python3", "RampPotential.py", "-i"])
+# subprocess.run(["python3", "StepPotential.py", "-i"])
+# subprocess.run(["python3", "TwoBarriers.py", "-i"])
+# subprocess.run(["python3", "TwoLevelBoxPotential.py", "-i"])
+# subprocess.run(["python3", "TwoWall.py", "-i"])
+# subprocess.run(["python3", "WavePackage.py", "-i"])
+
+# subprocess.run(["python3", "BoxPit.py", "-i", "-wf"])
+# subprocess.run(["python3", "HarmonicOscillator.py", "-i", "-wf"])
+# subprocess.run(["python3", "QuantumTunnelling.py", "-i", "-wf"])
+# subprocess.run(["python3", "RampPotential.py", "-i", "-wf"])
+# subprocess.run(["python3", "StepPotential.py", "-i", "-wf"])
+# subprocess.run(["python3", "TwoBarriers.py", "-i", "-wf"])
+# subprocess.run(["python3", "TwoLevelBoxPotential.py", "-i", "-wf"])
+# subprocess.run(["python3", "TwoWall.py", "-i", "-wf"])
+# subprocess.run(["python3", "WavePackage.py", "-i", "-wf"])
 
 total_exec_t = datetime.now() - start
 

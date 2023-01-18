@@ -3,8 +3,8 @@
         "N" : 1000,
         "x_start" : -150,
         "x_end" : 210,
-        "fps" : 5,
-        "total_frames_n" : 360
+        "fps" : 30,
+        "total_frames_n" : 600
     },
 
     {
