@@ -3,14 +3,14 @@
         "N" : 1000,
         "x_start" : -150,
         "x_end" : 210,
-        "fps" : 30,
-        "total_frames_n" : 350
+        "fps" : 5,
+        "total_frames_n" : 360
     },
 
     {
         "x0" : -100,
         "sigma0" : 9.0,
-        "E0" : 0.4
+        "E0" : 0.45
     },
 
     {
