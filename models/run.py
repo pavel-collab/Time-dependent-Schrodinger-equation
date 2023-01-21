@@ -16,7 +16,9 @@ log_file.write(date + '\n')
 log_file.write('-'*50 + '\n')
 log_file.close()
 
-subprocess.run(["python3", "QuantumTunnelling.py"])
+
+subprocess.run(["python3", "QuantumTunnellingCompare.py", "-i"])
+subprocess.run(["python3", "BoxPitCompare.py", "-i"])
 
 total_exec_t = datetime.now() - start
 

@@ -522,3 +522,148 @@ TwoBariers.py exec time:
 
 TOTAL EXECUTE TIME: 0:58:33.780726
 
+--------------------------------------------------
+19.01.2023-14.49.09
+--------------------------------------------------
+QuantumTunnelling.py exec time:
+0:24:41.987814
+
+QuantumTunnelling.py exec time:
+0:27:42.266568
+
+QuantumTunnelling.py exec time:
+0:25:42.030499
+
+QuantumTunnelling.py exec time:
+0:25:26.901949
+
+QuantumTunnelling.py exec time:
+0:24:06.147128
+
+QuantumTunnelling.py exec time:
+0:26:30.957877
+
+QuantumTunnelling.py exec time:
+0:23:46.027758
+
+QuantumTunnelling.py exec time:
+0:24:13.983391
+
+TOTAL EXECUTE TIME: 3:22:19.187922
+
+--------------------------------------------------
+19.01.2023-18.17.11
+--------------------------------------------------
+QuantumTunnelling.py exec time:
+0:24:23.266964
+
+QuantumTunnelling.py exec time:
+0:24:14.811535
+
+QuantumTunnelling.py exec time:
+0:24:24.298246
+
+QuantumTunnelling.py exec time:
+0:25:01.334387
+
+TOTAL EXECUTE TIME: 1:38:08.178574
+
+--------------------------------------------------
+19.01.2023-20.48.43
+--------------------------------------------------
+TOTAL EXECUTE TIME: 0:00:00.000094
+
+--------------------------------------------------
+19.01.2023-20.48.46
+--------------------------------------------------
+TOTAL EXECUTE TIME: 0:00:00.000087
+
+--------------------------------------------------
+19.01.2023-20.49.04
+--------------------------------------------------
+QuantumTunnelling.py exec time:
+0:23:33.077491
+
+QuantumTunnelling.py exec time:
+0:23:33.393531
+
+QuantumTunnelling.py exec time:
+0:23:32.926050
+
+QuantumTunnelling.py exec time:
+0:23:42.095282
+
+QuantumTunnelling.py exec time:
+0:24:30.176154
+
+QuantumTunnelling.py exec time:
+0:25:09.291054
+
+QuantumTunnelling.py exec time:
+0:27:47.271502
+
+QuantumTunnelling.py exec time:
+0:23:48.263952
+
+QuantumTunnelling.py exec time:
+0:27:10.393968
+
+QuantumTunnelling.py exec time:
+0:23:45.402768
+
+WavePackage.py exec time:
+0:22:55.956954
+
+WavePackage.py exec time:
+0:23:00.873647
+
+WavePackage.py exec time:
+0:23:28.169381
+
+WavePackage.py exec time:
+0:22:20.400177
+
+WavePackage.py exec time:
+0:22:10.911351
+
+TOTAL EXECUTE TIME: 6:00:44.519913
+
+--------------------------------------------------
+20.01.2023-12.03.17
+--------------------------------------------------
+WavePackageCompare.py exec time:
+0:49:17.644709
+
+QuantumTunnellingCompare.py exec time:
+0:47:31.012964
+
+BoxPitCompare.py exec time:
+0:39:15.027978
+
+TOTAL EXECUTE TIME: 2:16:07.735826
+
+--------------------------------------------------
+20.01.2023-14.24.33
+--------------------------------------------------
+WavePackageCompare.py exec time:
+0:48:22.132355
+
+QuantumTunnellingCompare.py exec time:
+0:50:35.670909
+
+BoxPitCompare.py exec time:
+0:40:21.103270
+
+TOTAL EXECUTE TIME: 2:19:23.040906
+
+--------------------------------------------------
+20.01.2023-17.54.06
+--------------------------------------------------
+QuantumTunnellingCompare.py exec time:
+0:47:02.083399
+
+BoxPitCompare.py exec time:
+0:40:01.888957
+
+TOTAL EXECUTE TIME: 1:27:06.597254
+
