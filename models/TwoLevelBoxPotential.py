@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib import animation
+from matplotlib.animation import PillowWriter
 from datetime import datetime
 import json
 import argparse
@@ -154,9 +155,14 @@ def main():
     try:
         ani = animation.FuncAnimation(fig, animate, frames=total_frames_n, interval=fps)
         # here we can save the animation like a video
-        f = r"../video/two_level_box_potential_" + date + r"_.mp4" 
+        f_mp4 = r"../video/two_level_box_potential_" + date + r"_.mp4"
+        f_gif = r"../video/two_level_box_potential_" + date + r"_.gif" 
         writervideo = animation.FFMpegWriter(fps=fps) 
-        ani.save(f, writer=writervideo)
+        
+        # We can save it as a video .mp4
+        ani.save(f_mp4, writer=writervideo)
+        # Or we can save it as a gif .gif
+        # ani.save(f_gif, writer='pillow', dpi=500)
 
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
