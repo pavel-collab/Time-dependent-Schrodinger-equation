@@ -27,6 +27,31 @@ _Программа создает видео в формате mp4. Для то
 __ATTENTION3__
 _Есть вероятность, что программа не будет корректно работать на вашем компьютере. Это связано с какими-то проблемами пакета matplotlib animation. В данный момент автор пытается разобраться с данной проблемой и составить соответствующую инструкцию._
 
+
+<p align="center">
+    <img src="https://github.com/pavel-collab/Time-dependent-Schrodinger-equation/blob/main/Tex/images/wave_package_26.01.2023-20.28.05_.gif" alt="caption" width="300"/>
+</p>
+
+<p align="center">
+    <img src="https://github.com/pavel-collab/Time-dependent-Schrodinger-equation/blob/main/Tex/images/step_potential_26.01.2023-20.00.03_.gif" alt="caption" width="300"/>
+</p>
+
+<p align="center">
+    <img src="https://github.com/pavel-collab/Time-dependent-Schrodinger-equation/blob/main/Tex/images/quantum_tunnelling_26.01.2023-19.38.56_.gif" alt="caption" width="300"/>
+</p>
+
+<p align="center">
+    <img src="https://github.com/pavel-collab/Time-dependent-Schrodinger-equation/blob/main/Tex/images/harmonic_oscillator_26.01.2023-19.26.08_.gif" alt="caption" width="300"/>
+</p>
+
+<p align="center">
+    <img src="" alt="caption" width="300"/>
+</p>
+
+<p align="center">
+    <img src="https://github.com/pavel-collab/Time-dependent-Schrodinger-equation/blob/main/Tex/images/ramp_potential_26.01.2023-19.49.41_.gif" alt="caption" width="300"/>
+</p>
+
 # Time dependendent Shrodinger equation
 
 Описание работы, теоретические данные и принцип численного решения вы можете найти в папке _Tex_.
