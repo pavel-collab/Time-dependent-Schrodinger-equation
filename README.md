@@ -45,10 +45,6 @@ _Есть вероятность, что программа не будет ко
 </p>
 
 <p align="center">
-    <img src="" alt="caption" width="300"/>
-</p>
-
-<p align="center">
     <img src="https://github.com/pavel-collab/Time-dependent-Schrodinger-equation/blob/main/Tex/images/ramp_potential_26.01.2023-19.49.41_.gif" alt="caption" width="300"/>
 </p>
 
