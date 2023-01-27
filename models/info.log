@@ -667,3 +667,32 @@ BoxPitCompare.py exec time:
 
 TOTAL EXECUTE TIME: 1:27:06.597254
 
+--------------------------------------------------
+26.01.2023-19.16.30
+--------------------------------------------------
+BoxPit.py exec time:
+0:09:35.901298
+
+HarmonicOscillator.py exec time:
+0:12:46.621965
+
+QuantumTunnelling.py exec time:
+0:10:43.748032
+
+RampPotential.py exec time:
+0:10:21.095754
+
+StepPotential.py exec time:
+0:09:31.890651
+
+TwoBariers.py exec time:
+0:09:53.673733
+
+TwoLevelBoxPotential.py exec time:
+0:08:32.757808
+
+WavePackage.py exec time:
+0:10:57.028470
+
+TOTAL EXECUTE TIME: 1:22:32.713098
+
