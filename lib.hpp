@@ -1,7 +1,9 @@
+#ifndef _LIB_HPP_
+#define _LIB_HPP_
+
 #include <iostream>
 #include <vector>
 
-// функция факториала
 unsigned long long fact(unsigned n) {
     if(n == 1 || n == 0)
         return 1;
@@ -9,7 +11,6 @@ unsigned long long fact(unsigned n) {
         return n * fact(n - 1);
 }
 
-// класс матрицы произвольного размера n*m
 template<typename T>
 class Matrix
 {
@@ -22,10 +23,8 @@ protected:
 
 public:
 
-    // возвращает информацию о том, является ли матрица квадратной
     bool IsSquare() const;
 
-    // возвращает содердимое матрицы в std::vector
     std::vector<T> data() const;
 
     Matrix(unsigned w, unsigned h);
@@ -33,19 +32,12 @@ public:
     Matrix(unsigned w, unsigned h, T* vals);
 
     Matrix operator+=(const Matrix& Other);
-
     Matrix operator+(const Matrix& Other) const;
-
     Matrix operator-=(const Matrix& Other);
-
     Matrix operator-(const Matrix& Other) const;
-
     Matrix operator*(const Matrix& Other) const;
-
     Matrix operator*=(const T& Num);
-
     Matrix operator/=(const T& Num);
-
     Matrix operator/(const T& Num);
 
     Matrix identity();
@@ -284,7 +276,6 @@ Matrix<T> SqrMatrix<T>::exp() const
     Matrix<T> PowStep{*this};
 
     // --------------------------------------------------------------------------------------------
-    // выполняем нормировку матрицы, чтобы при применении матриной экспоненты не произошло переполнение
     float Sum = 0.0;
     unsigned total = this->dimension_ * this->dimension_;
     for(int i = 0; i < total; ++i) {
@@ -312,3 +303,13 @@ Matrix<T> SqrMatrix<T>::exp() const
 
     return NewMat;
 };
+
+extern "C"
+{
+    /*
+    Here we need to write the prototypes of C wrap functions.
+    The implementations of this function we should to write in lob.cpp 
+    */
+}
+
+#endif
