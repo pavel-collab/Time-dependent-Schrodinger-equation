@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
+#include "lib.hpp"
 
-// функция факториала
 unsigned long long fact(unsigned n) {
     if(n == 1 || n == 0)
         return 1;
@@ -9,7 +9,6 @@ unsigned long long fact(unsigned n) {
         return n * fact(n - 1);
 }
 
-// класс матрицы произвольного размера n*m
 template<typename T>
 class Matrix
 {
@@ -22,13 +21,11 @@ protected:
 
 public:
 
-    // возвращает информацию о том, является ли матрица квадратной
     bool IsSquare() const 
     { 
         return height_ == width_; 
     };
 
-    // возвращает содердимое матрицы в std::vector
     std::vector<T> data() const 
     { 
         return values_; 
@@ -48,8 +45,7 @@ public:
             values_[i] = vals[i];
     };
 
-    // пустой деструктор -- все равно, что деструктор по умолчанию
-    // наверное, его в этом случае, можно и не писать
+    //TODO убрать пустой деструктор. Компилятор и так добавить деструктор по умоланию.
     ~Matrix() {};
 
 
@@ -159,7 +155,6 @@ public:
         return *this;
     }
 
-    // умножение мартрицы на число
     Matrix operator*=(const T& Num) 
     {
         unsigned total = this->width_ * this->height_;
@@ -197,8 +192,6 @@ public:
         return NewMat;
     }
 
-    // приведение уже существующей матрицы к единичной форме
-    // даааа, видно, что человек, много писал на python)))
     Matrix identity() 
     {
         for(int i = 0; i < this->width_; ++i)
@@ -212,7 +205,7 @@ public:
 
 };
 
-// вероятно, здесь надо передавать матрицу по ссылке, чтобы не происходило копирование
+//TODO передача матрицы по ссылке
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const Matrix<T>& Mat) 
 {
@@ -245,8 +238,6 @@ public:
         Matrix<T> CurrPow{NewMat};
         Matrix<T> PowStep{*this};
 
-        // --------------------------------------------------------------------------------------------
-        // выполняем нормировку матрицы, чтобы при применении матриной экспоненты не произошло переполнение
         float Sum = 0.0;
         unsigned total = this->dimension_ * this->dimension_;
         for(int i = 0; i < total; ++i) {
@@ -259,7 +250,6 @@ public:
             Sum = exp2(p);
             PowStep /= Sum;
         }
-        // --------------------------------------------------------------------------------------------
 
         for(int i = 1; i < 20; ++i) {
             float fctr = static_cast<float>(fact(i));
@@ -267,7 +257,6 @@ public:
             NewMat += CurrPow / fctr;
         }
 
-        // обратная нормировка
         if(Sum > 0)
             for(int i = 0; i < p; ++i)
                 NewMat = NewMat * NewMat;
