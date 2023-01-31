@@ -4,6 +4,16 @@
 #include <iostream>
 #include <vector>
 
+extern "C"
+{
+    /*
+    Here we need to write the prototypes of C wrap functions.
+    The implementations of this function we should to write in lob.cpp 
+    */
+
+    unsigned long long fact(unsigned n);
+}
+
 unsigned long long fact(unsigned n) {
     if(n == 1 || n == 0)
         return 1;
@@ -28,7 +38,6 @@ public:
     std::vector<T> data() const;
 
     Matrix(unsigned w, unsigned h);
-
     Matrix(unsigned w, unsigned h, T* vals);
 
     Matrix operator+=(const Matrix& Other);
@@ -303,13 +312,5 @@ Matrix<T> SqrMatrix<T>::exp() const
 
     return NewMat;
 };
-
-extern "C"
-{
-    /*
-    Here we need to write the prototypes of C wrap functions.
-    The implementations of this function we should to write in lob.cpp 
-    */
-}
 
 #endif
