@@ -1,37 +1,67 @@
 #include <complex>
 #include "lib.hpp"
 
-// Matrix<std::complex<double>>* matrix_new(unsigned int width, unsigned int hight, std::complex<double>* vals)
-// {
-//     return new Matrix(width, hight, vals);
-// }
+/*
+По сути мне даже не надо писать C обертки для C++ классов и методов,
+потому что я не буду использовать эти классы и методы в Python коде.
+Я могу просто написать C функцию foo() временной эволюции psi функции,
+используя C++ фнукционал и потом объявить функцию foo(), как
+extern "C".
+*/
 
-// void matrix_del(Matrix<std::complex<double>>* matrix)
-// {
-//     delete matrix;
-// }
-
-// bool is_square(Matrix<std::complex<double>>* matrix)
-// {
-//     return matrix->IsSquare();
-// }
-
-// Matrix<std::complex<double>> m_identity(Matrix<std::complex<double>>* matrix)
-// {
-//     return matrix->identity();
-// }
-
-SqrMatrix<std::complex<double>>* sqr_matrix_new(unsigned int d, std::complex<double>* vals)
+// получаем матрицу для взятия второй производной
+void diags(double* arr, int N)
 {
-    return new SqrMatrix(d, vals);
+    for (int i = 0; i < N; ++i)
+    {
+        for (int j = 0; j < N; ++j)
+        {
+            if (j == i)
+                arr[i*N+j] = -2;
+            else if ((i != 0) and ((j == i-1)) || (j == i+1))
+                arr[i*N+j] = 1;
+            else
+                arr[i*N+j] = 0;
+        }
+    }
 }
 
-void sqr_matrix_del(SqrMatrix<std::complex<double>>* sqr_matrix)
+// получаем матрицу для значений потенциальной энергии
+void spdiags(double* arr, int N, double* vals)
 {
-    delete sqr_matrix;
+    for (int i = 0; i < N; ++i)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (i == j)
+                arr[i*N+j] = vals[i];
+            else
+                arr[i*N+j] = 0;
+        }
+    }
 }
 
-Matrix<std::complex<double>> exp(SqrMatrix<std::complex<double>>* matrix)
+double* PsiTimeEvolution(long N, double dx, double* psi, double* V)
 {
-    return matrix->exp();
+    double* H = new double[N*N];
+
+    double* L = new double[N*N];
+    double* U = new double[N*N];
+
+    diags(L, N);
+    spdiags(U, N, V);
+
+    for (long i = 0; i < N; ++i)
+    {
+        for (long j = 0; j < N; ++j)
+        {
+            long idx = i*N + j;
+            H[idx] = (-1/(2*dx*dx)) * L[idx] + U[idx];
+        }
+    }
+
+    delete L;
+    delete U;
+
+    // на этой стадии у нас есть матрица гамильтониана в виде одномерного массива
 }

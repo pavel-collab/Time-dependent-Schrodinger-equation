@@ -10,8 +10,6 @@ extern "C"
     Here we need to write the prototypes of C wrap functions.
     The implementations of this function we should to write in lob.cpp 
     */
-
-    unsigned long long fact(unsigned n);
 }
 
 unsigned long long fact(unsigned n) {
