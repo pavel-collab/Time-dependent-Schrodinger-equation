@@ -10,41 +10,9 @@
 extern "C".
 */
 
-// получаем матрицу для взятия второй производной
-void diags(double* arr, int N)
-{
-    for (int i = 0; i < N; ++i)
-    {
-        for (int j = 0; j < N; ++j)
-        {
-            if (j == i)
-                arr[i*N+j] = -2;
-            else if ((i != 0) and ((j == i-1)) || (j == i+1))
-                arr[i*N+j] = 1;
-            else
-                arr[i*N+j] = 0;
-        }
-    }
-}
-
-// получаем матрицу для значений потенциальной энергии
-void spdiags(double* arr, int N, double* vals)
-{
-    for (int i = 0; i < N; ++i)
-    {
-        for (int j = 0; j < N; j++)
-        {
-            if (i == j)
-                arr[i*N+j] = vals[i];
-            else
-                arr[i*N+j] = 0;
-        }
-    }
-}
-
 //TODO посмотреть, нет ли готовых функций для сложения массивов. 
 // может быть можно использовать готовые плюсовые контейнеры или библиотеки
-void PsiTimeEvolutionReal(long N, double dx, double* real_psi, double* imag_psi, double* V)
+void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, double* V)
 {
     std::complex<double>* H = new std::complex<double>[N*N];
 
@@ -116,4 +84,7 @@ void PsiTimeEvolutionReal(long N, double dx, double* real_psi, double* imag_psi,
         real_psi[i] = res[i].real();
         imag_psi[i] = res[i].imag();
     }
+
+    delete dst;
+    delete res;
 }
