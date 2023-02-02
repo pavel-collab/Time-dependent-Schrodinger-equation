@@ -12,8 +12,9 @@ extern "C".
 
 //TODO посмотреть, нет ли готовых функций для сложения массивов. 
 // может быть можно использовать готовые плюсовые контейнеры или библиотеки
-void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, double* V)
+double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, double* V)
 {
+    std::cout << "checkpoint 1" << std::endl;
     std::complex<double>* H = new std::complex<double>[N*N];
 
     double* L = new double[N*N];
@@ -21,6 +22,8 @@ void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, dou
 
     diags(L, N);
     spdiags(U, N, V);
+
+    std::cout << "checkpoint 2" << std::endl;
 
     for (long i = 0; i < N; ++i)
     {
@@ -35,12 +38,25 @@ void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, dou
     delete L;
     delete U;
 
+    std::cout << "checkpoint 3" << std::endl;
+
     // на этой стадии у нас есть комплексная матрица гамильтониана в виде одномерного массива
 
     SqrMatrix<std::complex<double>> Hamiltonian(N, H);
+
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << Hamiltonian.data()[i] << std::endl;
+    }
+
+    std::cout << "checkpoint Matrix exp" << std::endl;
+
+
     Matrix<std::complex<double>> newU = Hamiltonian.exp();
 
     delete H;
+
+    std::cout << "checkpoint 4" << std::endl;
 
     //TODO привести малые значения к 0
 
@@ -48,6 +64,8 @@ void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, dou
     // std::vector<double> real_vals;
     // std::vector<double> imag_vals;
     vals = newU.data();
+
+    std::cout << "checkpoint 5" << std::endl;
 
     for (int i = 0; i < N*N; ++i)
     {
@@ -58,6 +76,8 @@ void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, dou
         // real_vals[i] = vals[i].real();
     }
 
+    std::cout << "checkpoint 6" << std::endl;
+
     std::complex<double>* dst = new std::complex<double>[N];
 
     for (int i = 0; i < N ; ++i)
@@ -67,6 +87,8 @@ void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, dou
     }
 
     std::complex<double>* res = new std::complex<double>[N];
+
+    std::cout << "checkpoint 7" << std::endl;
 
     for (int i = 0; i < N; ++i)
     {
@@ -79,12 +101,18 @@ void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, dou
         res[i] = sum;
     }
 
+    std::cout << "checkpoint 8" << std::endl;
+
     for (int i = 0; i < N; ++i)
     {
         real_psi[i] = res[i].real();
         imag_psi[i] = res[i].imag();
     }
 
+    std::cout << "checkpoint 9" << std::endl;
+
     delete dst;
     delete res;
+
+    return real_psi;
 }

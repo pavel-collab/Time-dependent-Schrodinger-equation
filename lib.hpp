@@ -11,7 +11,7 @@ extern "C"
     The implementations of this function we should to write in lob.cpp 
     */
 
-   void PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, double* V);
+   double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, double* V);
 }
 
 // получаем матрицу для взятия второй производной
