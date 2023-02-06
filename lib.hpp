@@ -82,8 +82,15 @@ public:
     Matrix operator/(const T& Num);
 
     Matrix identity();
+    void SetValue(const T& value, const int& idx);
 
 };
+
+template <typename T>
+void Matrix<T>::SetValue(const T& value, const int& idx)
+{
+    this->data[idx] = value;
+}
 
 template <typename T>
 bool Matrix<T>::IsSquare() const
