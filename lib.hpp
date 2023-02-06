@@ -89,7 +89,7 @@ public:
 template <typename T>
 void Matrix<T>::SetValue(const T& value, const int& idx)
 {
-    this->data[idx] = value;
+    this->data()[idx] = value;
 }
 
 template <typename T>

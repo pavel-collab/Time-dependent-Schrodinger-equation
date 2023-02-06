@@ -61,8 +61,6 @@ double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, 
     //TODO привести малые значения к 0
 
     std::vector<std::complex<double>> vals;
-    // std::vector<double> real_vals;
-    // std::vector<double> imag_vals;
     vals = newU.data();
 
     std::cout << "checkpoint 5" << std::endl;
@@ -71,9 +69,7 @@ double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, 
     {
         std::complex<double> z(0, 0);
         if (vals[i].real()*vals[i].real() + vals[i].imag()*vals[i].imag() < 0.000001)
-            vals[i] = z;
-
-        // real_vals[i] = vals[i].real();
+            newU.SetValue(z, i);
     }
 
     std::cout << "checkpoint 6" << std::endl;
@@ -90,6 +86,9 @@ double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, 
 
     std::cout << "checkpoint 7" << std::endl;
 
+    // скорее всего проблема в алгоритме умножения
+    // в Мишиной реазизации data идет по столбцам
+    vals = newU.data();
     for (int i = 0; i < N; ++i)
     {
         std::complex<double> sum(0, 0);

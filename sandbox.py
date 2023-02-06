@@ -4,7 +4,7 @@ import math
 import ctypes
 
 # set the number of points on the space grid
-N = 1000
+N = 100
 # set the grid of space range
 x_start = -120
 x_end = 120
@@ -24,14 +24,12 @@ V_dense = np.zeros(N)
 psi0 = ShrodingerEquation.GaussWavePackage(x_dense, x0, sigma0, p0)
 psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 
-print(psi.Hamiltonian[:10])
-
+# print(psi.Hamiltonian[:10])
 # psi.PsiTimeEvolute()
 
-lib = ctypes.CDLL("./libcpp.so")
+#------------------------------------------------------------------------------------------------
 
-# c_psi = psi.psi.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
-# print(c_psi)
+lib = ctypes.CDLL("./libcpp.so")
 
 # указываем, какие значения принимает C функция
 lib.PsiTimeEvolution.argtypes = [
@@ -41,17 +39,30 @@ lib.PsiTimeEvolution.argtypes = [
     ctypes.POINTER(ctypes.c_double),
     ctypes.POINTER(ctypes.c_double),
 ]
+lib.PsiTimeEvolution.restype = ctypes.POINTER(ctypes.c_double)
 
 # указываем, какой тип возвращает функция
 lib.PsiTimeEvolution.restype = ctypes.POINTER(ctypes.c_double)
 
 c_N = ctypes.c_long(N)
 c_dx = ctypes.c_double(dx)
-c_psi_real = psi.psi.real.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
-c_psi_imag = psi.psi.imag.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
-c_V = V_dense.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+# c_psi_real = psi.psi.real.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+# c_psi_imag = psi.psi.imag.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+# c_V = V_dense.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+
+c_psi_real = (ctypes.c_double * N)()
+c_psi_imag = (ctypes.c_double * N)()
+c_V = (ctypes.c_double * N)()
+
+for i in range(N):
+    c_psi_real[i] = psi.psi.real[i]
+    c_psi_imag[i] = psi.psi.imag[i]
 
 res = lib.PsiTimeEvolution(c_N, c_dx, c_psi_real, c_psi_imag, c_V)
-print(res)
+
+for i in range(10):
+    print(res[i])
+
+#------------------------------------------------------------------------------------------------
 
 # print(psi.psi.real[:10])
