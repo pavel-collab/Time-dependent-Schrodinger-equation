@@ -71,6 +71,7 @@ class WaveFunction:
     def PsiTimeEvolute(self):
         U = self.__TimeEvolution()
         self.psi = U @ self.psi
+        # print(U)
 
     @property 
     def Hamiltonian(self):

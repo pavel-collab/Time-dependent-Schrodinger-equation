@@ -4,7 +4,7 @@ import math
 import ctypes
 
 # set the number of points on the space grid
-N = 100
+N = 2
 # set the grid of space range
 x_start = -120
 x_end = 120
@@ -24,7 +24,7 @@ V_dense = np.zeros(N)
 psi0 = ShrodingerEquation.GaussWavePackage(x_dense, x0, sigma0, p0)
 psi = ShrodingerEquation.WaveFunction(psi0, x_dense, V_dense)
 
-# print(psi.Hamiltonian[:10])
+# print("hamiltonian: ", psi.Hamiltonian)
 # psi.PsiTimeEvolute()
 
 #------------------------------------------------------------------------------------------------
@@ -46,9 +46,6 @@ lib.PsiTimeEvolution.restype = ctypes.POINTER(ctypes.c_double)
 
 c_N = ctypes.c_long(N)
 c_dx = ctypes.c_double(dx)
-# c_psi_real = psi.psi.real.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
-# c_psi_imag = psi.psi.imag.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
-# c_V = V_dense.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
 
 c_psi_real = (ctypes.c_double * N)()
 c_psi_imag = (ctypes.c_double * N)()

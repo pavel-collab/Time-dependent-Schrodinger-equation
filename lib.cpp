@@ -43,22 +43,16 @@ double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, 
     // на этой стадии у нас есть комплексная матрица гамильтониана в виде одномерного массива
 
     SqrMatrix<std::complex<double>> Hamiltonian(N, H);
-
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << Hamiltonian.data()[i] << std::endl;
-    }
+    std::cout << Hamiltonian << std::endl;
 
     std::cout << "checkpoint Matrix exp" << std::endl;
 
-
     Matrix<std::complex<double>> newU = Hamiltonian.exp();
+    std::cout << newU << std::endl;
 
     delete H;
 
     std::cout << "checkpoint 4" << std::endl;
-
-    //TODO привести малые значения к 0
 
     std::vector<std::complex<double>> vals;
     vals = newU.data();
@@ -71,6 +65,8 @@ double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, 
         if (vals[i].real()*vals[i].real() + vals[i].imag()*vals[i].imag() < 0.000001)
             newU.SetValue(z, i);
     }
+
+    std::cout << newU << std::endl;
 
     std::cout << "checkpoint 6" << std::endl;
 
@@ -86,19 +82,27 @@ double* PsiTimeEvolution(long N, double dx, double* real_psi, double* imag_psi, 
 
     std::cout << "checkpoint 7" << std::endl;
 
-    // скорее всего проблема в алгоритме умножения
-    // в Мишиной реазизации data идет по столбцам
-    vals = newU.data();
+    std::complex<double>* v = new std::complex<double>[N*N];
+    for (long i = 0; i < N*N; ++i)
+    {
+        v[i] = newU.data()[i];
+    } 
+
+    SqrMatrix<std::complex<double>> a{N, v};
+    a.Transpose();
+    std::cout << a << std::endl;
     for (int i = 0; i < N; ++i)
     {
         std::complex<double> sum(0, 0);
         for (int j = 0; j < N; ++j)
         {
-            sum += vals[i*N+j] * dst[j];
+            sum += a.data()[i*N+j] * dst[j];
         }
 
         res[i] = sum;
     }
+
+    delete v;
 
     std::cout << "checkpoint 8" << std::endl;
 

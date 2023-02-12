@@ -306,6 +306,7 @@ public:
     SqrMatrix(unsigned d, T* vals);
 
     Matrix<T> exp() const;
+    void Transpose();
 };
 
 template <typename T>
@@ -351,5 +352,23 @@ Matrix<T> SqrMatrix<T>::exp() const
 
     return NewMat;
 };
+
+template <typename T>
+void SqrMatrix<T>::Transpose()
+{
+    unsigned N = this->dimension_;
+    for (unsigned i = 0; i < N; ++i)
+    {
+        for (unsigned j = i; j < N; ++j)
+        {
+            unsigned idx = i*N + j;
+            unsigned new_idx = j*N + i;
+            T tmp = this->values_[idx];
+            
+            this->values_[idx] = this->values_[new_idx];
+            this->values_[new_idx] = tmp;
+        }
+    }
+}
 
 #endif
