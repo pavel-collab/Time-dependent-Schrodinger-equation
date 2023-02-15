@@ -149,9 +149,9 @@ def main():
         writervideo = animation.FFMpegWriter(fps=fps) 
         
         # We can save it as a video .mp4
-        # ani.save(f_mp4, writer=writervideo)
+        ani.save(f_mp4, writer=writervideo)
         # Or we can save it as a gif .gif
-        ani.save(f_gif, writer='pillow', dpi=500)
+        # ani.save(f_gif, writer='pillow', dpi=500)
 
         exec_time = datetime.now() - start_time
         log_file = open('info.log', 'a')
