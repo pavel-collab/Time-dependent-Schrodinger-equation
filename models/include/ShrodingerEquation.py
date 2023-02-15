@@ -26,6 +26,25 @@ class GaussWavePackage:
     def sigma(self):
         return self.__sigma0
 
+class BoxWavePackage:
+    __slots__ = ['__x', '__x0', '__delta0', '__p0']
+
+    def __init__(self, x_dense, x0, delta0, p0) -> None:
+        self.__x = x_dense
+        self.__x0 = x0
+        self.__delta0 = delta0
+        self.__p0 = p0
+
+    def GetWavePackage(self):
+        N = np.shape(self.__x)[0]
+        wp = np.zeros(0)
+        for i in range(N):
+            if self.__x0 - self.__delta0/2 <= self.__x[i] <= self.__x0 + self.__delta0 / 2:
+                wp[i] = 1 / self.__delta0
+            else:
+                wp[i] = 0
+        return wp
+
 '''
 Class define the psi fucntion and methods that defines how psi fucntion
 changed during the time.
