@@ -26,24 +26,26 @@ class GaussWavePackage:
     def sigma(self):
         return self.__sigma0
 
+# TODO: попробовать с помощью sympy установить нормировочный коэффициент
 class BoxWavePackage:
     __slots__ = ['__x', '__x0', '__delta0', '__p0']
 
-    def __init__(self, x_dense, x0, delta0, p0) -> None:
+    def __init__(self, x_dense, x0, delta0, p0, hight=None) -> None:
         self.__x = x_dense
         self.__x0 = x0
         self.__delta0 = delta0
         self.__p0 = p0
 
+
     def GetWavePackage(self):
         N = np.shape(self.__x)[0]
-        wp = np.zeros(0)
+        wp = np.zeros(N)
         for i in range(N):
             if self.__x0 - self.__delta0/2 <= self.__x[i] <= self.__x0 + self.__delta0 / 2:
                 wp[i] = 1 / self.__delta0
             else:
                 wp[i] = 0
-        return wp
+        return wp * np.exp(1j*self.__p0*self.__x )
 
 '''
 Class define the psi fucntion and methods that defines how psi fucntion

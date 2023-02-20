@@ -709,3 +709,100 @@ TwoBariers.py exec time:
 TwoBariers.py exec time:
 1:41:57.818799
 
+BoxWavePackage.py exec time:
+Program was terminated or there was some error:
+0:00:31.029939
+
+BoxWavePackage.py exec time:
+0:10:45.386418
+
+BoxWavePackage.py exec time:
+0:07:30.682231
+
+TwoBariersBoxWavePackage.py exec time:
+0:07:13.909254
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:03.322882
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:02.240340
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:02.876809
+
+BoxWavePackage.py exec time:
+0:08:16.159445
+
+BoxWavePackage.py exec time:
+0:09:02.971184
+
+BoxWavePackage.py exec time:
+0:07:29.034638
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:28.428701
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:42.854954
+
+--------------------------------------------------
+19.02.2023-15.24.37
+--------------------------------------------------
+--------------------------------------------------
+19.02.2023-22.45.01
+--------------------------------------------------
+BoxWavePackage.py exec time:
+0:07:31.879421
+
+BoxWavePackage.py exec time:
+0:07:24.152272
+
+BoxWavePackage.py exec time:
+0:09:49.455369
+
+BoxWavePackage.py exec time:
+0:08:04.414114
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:27.236055
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:32.613905
+
+TwoBariersBoxWavePackage.py exec time:
+0:09:02.736318
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:50.746513
+
+TOTAL EXECUTE TIME: 1:09:32.994291
+
+--------------------------------------------------
+20.02.2023-00.22.13
+--------------------------------------------------
+BoxWavePackage.py exec time:
+0:07:04.168311
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:14.670766
+
+BoxWavePackage.py exec time:
+0:07:04.481995
+
+TwoBariersBoxWavePackage.py exec time:
+0:06:13.970279
+
+TOTAL EXECUTE TIME: 0:42:40.001848
+
+--------------------------------------------------
+20.02.2023-01.07.04
+--------------------------------------------------
+WavePackage.py exec time:
+0:07:18.673594
+
+WavePackage.py exec time:
+0:07:09.901746
+
+TOTAL EXECUTE TIME: 0:14:30.194427
+
