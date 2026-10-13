@@ -1,0 +1,14 @@
+[project]
+name = "time-dependent-schrodinger-equation"
+version = "0.1.0"
+description = "Numerical wave packet evolution and quantum tunnelling animations"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.9,<4",
+    "numpy>=2,<3",
+    "pillow>=11,<13",
+    "scipy>=1.14,<2",
+]
+
+[tool.uv]
+package = false

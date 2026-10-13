@@ -6,8 +6,11 @@ from matplotlib import animation
 from datetime import datetime
 import json
 import argparse
+from pathlib import Path
 
-from include import ShrodingerEquation, PotentialBarriers
+from include import ShrodingerEquation, PotentialBarriers, AnimationStyle
+
+AnimationStyle.SetStyle()
 
 #----------------------------------------ArgumentParser----------------------------------------
 parser = argparse.ArgumentParser()
@@ -16,9 +19,10 @@ parser.add_argument("-c", "--config", help="set config file with model settings"
 parser.add_argument("-wf", "--wavefunction", help="plot the wave function (if this key is not used there will be plot only wave package)", action="store_true")
 parser.add_argument("-i", "--info", help="add the information on the plot (information about average coordinate, momentum and package sigma)", action="store_true")
 
+AnimationStyle.AddArguments(parser)
 args = parser.parse_args()
 
-config_file_name = "./configs/WavePackageCompare.json"
+config_file_name = Path(__file__).parent / "configs/WavePackageCompare.json"
 if args.config != None:
     config_file_name = args.config
 
@@ -69,7 +73,7 @@ psi2 = ShrodingerEquation.WaveFunction(psi02, x_dense, V_dense2)
 
 #----------------------------------------Plot settings----------------------------------------
 # set the figure, axes limits and title
-fig = plt.figure(figsize=(8, 12))
+fig = plt.figure(figsize=(32/3, 12))
 ax1 = plt.subplot(2, 1, 1)
 ax2 = plt.subplot(2, 1, 2)
 
@@ -80,23 +84,11 @@ ax2.set_ylim(-0.05, 0.12)
 
 # create and initial empty frame
 ln1, = ax1.plot([], [], label='wave package')
-ln2, = ax2.plot([], [], label='potential pit')
+ln2, = ax2.plot([], [], label='wave package')
 if args.wavefunction != False:
     ln3, = ax1.plot([], [], label='wave function')
     ln4, = ax2.plot([], [], label='wave function')
 
-# initial text box
-ax1.text(
-    x_start+30, 1, '',
-    size = 8,
-    bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
-)
-# initial text box
-ax2.text(
-    x_start+30, 1, '',
-    size = 8,
-    bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
-)
 
 plt.subplot(2, 1, 1)
 plt.title('Wave Package')
@@ -107,24 +99,23 @@ plt.title('Wave Package')
 plt.xlabel('x')
 plt.ylabel(r'$|\psi|^2$')
 
+peak = max(max(psi1.WaveFunctioProbability()), max(psi2.WaveFunctioProbability()))
+psi_norm_factor1 = max(psi1.WaveFunctioProbability()) / max(abs(psi1.psi.real))
+psi_norm_factor2 = max(psi2.WaveFunctioProbability()) / max(abs(psi2.psi.real))
+info_text1 = AnimationStyle.StyleAxes(ax1, x_dense, V_dense1, args=args, peak=peak)
+info_text2 = AnimationStyle.StyleAxes(ax2, x_dense, V_dense2, args=args, peak=peak)
+AnimationStyle.LayoutFigure(fig, args)
+
 # fps and total number of frames
-fps = JsonData[0]['fps']
-total_frames_n = JsonData[0]['total_frames_n']
+fps, total_frames_n, dt = AnimationStyle.FrameSettings(JsonData[0], args)
 
 #----------------------------------------Animation function----------------------------------------
 # function animate define how frames will be changed during the time
-def animate(i):
-    '''
-    Lets explain what does it for. In matplotlib animation the animate function really wants to
-    depend of i (number of frame), so, if the interpritator see that i is not used,
-    it will be a warning, but in pur case we don't need to use the number of frame, so we make an
-    artificial using of variable i to avoid a warnings.
-    '''
-    I = i
-    psi1.PsiTimeEvolute()
-    psi2.PsiTimeEvolute()
-    psi_norm_factor1 = max(psi1.WaveFunctioProbability()) / max(psi1.psi.real)
-    psi_norm_factor2 = max(psi2.WaveFunctioProbability()) / max(psi2.psi.real)
+def animate(i, evolve=True):
+    if evolve:
+        psi1.PsiTimeEvolute(dt)
+    if evolve:
+        psi2.PsiTimeEvolute(dt)
 
     # update information about plot
     # update information about plot
@@ -138,53 +129,44 @@ def animate(i):
     if args.info != False:
         avrg_cordinate1 = psi1.GetAvrgCordinate()
         avrg_momentum1 = psi1.GetAvrgMomentum()
-        sigma1 = sigma10 * math.sqrt(1 + (i/sigma10**2)**2)
+        sigma1 = sigma10 * math.sqrt(1 + ((i + 1)*dt/sigma10**2)**2)
         
         avrg_cordinate2 = psi2.GetAvrgCordinate()
         avrg_momentum2 = psi2.GetAvrgMomentum()
-        sigma2 = sigma20 * math.sqrt(1 + (i/sigma20**2)**2)
+        sigma2 = sigma20 * math.sqrt(1 + ((i + 1)*dt/sigma20**2)**2)
 
         #update information in text box
-        ax1.text(
-            x_start+30, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
-            %(avrg_cordinate1, avrg_momentum1, sigma1),
-            size = 8,
-            bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
+        info_text1.set_text(
+            r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf'
+            %(avrg_cordinate1, avrg_momentum1, sigma1)
         )
-        ax2.text(
-            x_start+30, 0.1, r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf' 
-            %(avrg_cordinate2, avrg_momentum2, sigma2),
-            size = 8,
-            bbox=dict(facecolor='white', edgecolor='black', pad=10.0)
+        info_text2.set_text(
+            r'$\langle x \rangle =$ %0.2lf, $\langle p \rangle =$ %0.2lf, $\sigma = $ %0.2lf'
+            %(avrg_cordinate2, avrg_momentum2, sigma2)
         )
 
 def main():
     start_time = datetime.now()
     date = datetime.strftime(datetime.now(), "%d.%m.%Y-%H.%M.%S")
     try:
-        ani = animation.FuncAnimation(fig, animate, frames=total_frames_n, interval=fps)
+        ani = AnimationStyle.CreateAnimation(fig, animate, total_frames_n, fps, args)
         # here we can save the animation like a video
-        f_mp4 = r"../video/wave_package_compare_" + date + r"_.mp4"
         f_gif = r"../video/wave_package_compare_" + date + r"_.gif" 
-        writervideo = animation.FFMpegWriter(fps=fps) 
-        
-        # We can save it as a video .mp4
-        ani.save(f_mp4, writer=writervideo)
-        # Or we can save it as a gif .gif
-        # ani.save(f_gif, writer='pillow', dpi=500)
+        AnimationStyle.SaveAnimation(ani, f_gif, args)
 
         exec_time = datetime.now() - start_time
-        log_file = open('info.log', 'a')
+        log_file = open(Path(__file__).parent / 'info.log', 'a')
         log_file.write('WavePackageCompare.py exec time:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
-    except:
+    except Exception:
         exec_time = datetime.now() - start_time
-        log_file = open('info.log', 'a')
+        log_file = open(Path(__file__).parent / 'info.log', 'a')
         log_file.write('WavePackageCompare.py exec time:\n')
         log_file.write('Program was terminated or there was some error:\n')
         log_file.write(str(exec_time) + '\n\n')
         log_file.close()
+        raise
 
 if __name__ == '__main__':
     main()
